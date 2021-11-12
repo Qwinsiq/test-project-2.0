@@ -1,0 +1,117 @@
+Build started at 2021-11-12T10:25:10.380227
+Main binary: /usr/bin/python3
+Build Options: 
+Python system: Linux
+The Meson build system
+Version: 0.54.2
+Source dir: /home/qwinsiq/Desktop/test_project/task1/proto_example
+Build dir: /home/qwinsiq/Desktop/test_project/task1/proto_example/bin
+Build type: native build
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Project name: protobuf task
+Project version: undefined
+None of 'CXX' are defined in the environment, not changing global flags.
+None of 'CXXFLAGS' are defined in the environment, not changing global flags.
+None of 'LDFLAGS' are defined in the environment, not changing global flags.
+None of 'CPPFLAGS' are defined in the environment, not changing global flags.
+None of 'CXX_LD' are defined in the environment, not changing global flags.
+Sanity testing C++ compiler: c++
+Is cross compiler: False.
+Sanity check compiler command line: c++ /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/sanitycheckcpp.cc -o /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/sanitycheckcpp.exe
+C++ compiler for the build machine: c++ (gcc 7.5.0 "c++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0")
+C++ linker for the build machine: c++ ld.bfd 2.30
+None of 'AR' are defined in the environment, not changing global flags.
+None of 'CXX' are defined in the environment, not changing global flags.
+None of 'CXXFLAGS' are defined in the environment, not changing global flags.
+None of 'LDFLAGS' are defined in the environment, not changing global flags.
+None of 'CPPFLAGS' are defined in the environment, not changing global flags.
+None of 'CXX_LD' are defined in the environment, not changing global flags.
+Sanity testing C++ compiler: c++
+Is cross compiler: False.
+Sanity check compiler command line: c++ /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/sanitycheckcpp.cc -o /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/sanitycheckcpp.exe
+C++ compiler for the host machine: c++ (gcc 7.5.0 "c++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0")
+C++ linker for the host machine: c++ ld.bfd 2.30
+None of 'AR' are defined in the environment, not changing global flags.
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Pkg-config binary for MachineChoice.HOST is not cached.
+None of 'PKG_CONFIG' are defined in the environment, not changing global flags.
+Pkg-config binary missing from cross or native file, or env var undefined.
+Trying a default Pkg-config fallback at pkg-config
+Trying pkg-config binary pkg-config for machine MachineChoice.HOST at ['/usr/bin/pkg-config']
+Found pkg-config: /usr/bin/pkg-config (0.29.1)
+Determining dependency 'protobuf' with pkg-config executable '/usr/bin/pkg-config'
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --modversion protobuf` -> 0
+3.19.1
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --cflags protobuf` -> 0
+-I/usr/local/include
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config protobuf --libs` -> 0
+-L/usr/local/lib -lprotobuf
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config protobuf --libs` -> 0
+-L/usr/local/lib -lprotobuf
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Running compile:
+Working directory:  /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/tmpdbqn8jir
+Command line:  c++ /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/tmpdbqn8jir/testfile.cpp -o /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/tmpdbqn8jir/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
+
+Code:
+ #include<stdio.h>
+        
+        int main(void) {
+            printf("%ld\n", (long)(sizeof(void *)));
+            return 0;
+        };
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Program stdout:
+
+8
+
+Program stderr:
+
+
+Running compile:
+Working directory:  /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/tmpfgv05hz8
+Command line:  c++ /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/tmpfgv05hz8/testfile.cpp -o /home/qwinsiq/Desktop/test_project/task1/proto_example/bin/meson-private/tmpfgv05hz8/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-linux-gnu/7/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/7/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/7/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 
+Run-time dependency protobuf found: YES 3.19.1
+Program protoc found: YES (/usr/local/bin/protoc)
+Build targets in project: 1
+
+Found ninja-1.8.2 at /usr/bin/ninja
+None of 'STRIP' are defined in the environment, not changing global flags.
+None of 'STRIP' are defined in the environment, not changing global flags.

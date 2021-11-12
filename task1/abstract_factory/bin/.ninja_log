@@ -1,0 +1,15 @@
+# ninja log v5
+1	933	1636628332	source/41cf679@@src@sha/ConcreteProductA1.cpp.o	7488486bf84454b4
+1	1038	1636628332	source/41cf679@@src@sha/ConcreteFactory2.cpp.o	749a04aa748adeec
+0	1268	1636628333	source/41cf679@@src@sha/ConcreteFactory1.cpp.o	23d7e4c333deec36
+936	2557	1636628334	source/41cf679@@src@sha/ConcreteProductA2.cpp.o	8f61b7a36526655b
+1038	2615	1636628334	source/41cf679@@src@sha/ConcreteProductB1.cpp.o	75afc3313cf3c051
+1269	2782	1636628334	source/41cf679@@src@sha/ConcreteProductB2.cpp.o	fdd23346d82a5f39
+2782	3313	1636628335	source/libsrc.so	1739b16bbfa63557
+2557	4211	1636628336	Abst_exe@exe/main.cpp.o	54d7ec660cbdcb88
+3314	4736	1636628336	source/41cf679@@src@sha/libsrc.so.symbols	2804bf45ea57a785
+4736	5091	1636628337	Abst_exe	970d4fd80044f76b
+2616	6291	1636628338	test/9f86d08@@test1@exe/ConcreteProductA1Test.cpp.o	44a463ad9f9742fa
+5091	7573	1636628339	test/9f86d08@@test1@exe/_usr_src_gtest_src_gtest_main.cc.o	6a00252395f995da
+4211	13375	1636628345	test/9f86d08@@test1@exe/_usr_src_gtest_src_gtest-all.cc.o	c1448756f4bbae33
+13376	13923	1636628345	test/test1	b7fc90018c38e80e

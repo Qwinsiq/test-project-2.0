@@ -1,0 +1,7 @@
+syntax = "proto3";
+package task_info;
+option optimize_for = SPEED;
+
+message TaskInfo {
+    string content = 1;
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "directory": "/home/qwinsiq/Desktop/test_project/task1/proto_example/bin",
+    "command": "c++ -Iprog@exe -I. -I.. -I/usr/local/include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -g -MD -MQ 'prog@exe/meson-generated_task_info.pb.cpp.o' -MF 'prog@exe/meson-generated_task_info.pb.cpp.o.d' -o 'prog@exe/meson-generated_task_info.pb.cpp.o' -c 'prog@exe/task_info.pb.cpp'",
+    "file": "prog@exe/task_info.pb.cpp"
+  },
+  {
+    "directory": "/home/qwinsiq/Desktop/test_project/task1/proto_example/bin",
+    "command": "c++ -Iprog@exe -I. -I.. -I/usr/local/include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -g -MD -MQ 'prog@exe/main.cpp.o' -MF 'prog@exe/main.cpp.o.d' -o 'prog@exe/main.cpp.o' -c ../main.cpp",
+    "file": "../main.cpp"
+  }
+]

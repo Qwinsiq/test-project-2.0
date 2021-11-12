@@ -1,0 +1,1 @@
+[{"cmd": ["/home/qwinsiq/Desktop/test_project/task1/abstract_factory/bin/test/test1"], "env": {}, "name": "test", "workdir": null, "timeout": 30, "suite": ["abstract_factory"], "is_parallel": true, "priority": 0, "protocol": "exitcode"}]
