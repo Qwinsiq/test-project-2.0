@@ -9,6 +9,7 @@ prefix com;
 		leaf number{type uint32;}
 		leaf userName{type string; config false;}
 		leaf incomingNumber{type uint32;}
-		leaf state{type enumeration{enum idle; enum busy; enum active; }default idle;}
+		leaf state{type enumeration{enum idle; enum busy; enum active;} default idle;}
 	}
 }	
+}

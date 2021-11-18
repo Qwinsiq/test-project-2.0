@@ -7,7 +7,7 @@ void Register(std::string str)
 }
 void unregister()
 {
-    std::cout << " function unregicter is called";
+    std::cout << " function unregicter is called"<<std::endl;;
 }
 void call(std::string str)
 {
@@ -37,7 +37,8 @@ int main()
 {
     std::string str, command;
     int count_of_world;
-    do
+    bool cicle=true;
+    while (cicle)
     {
         getline(std::cin,str);
         count_of_world = 1;
@@ -60,6 +61,7 @@ int main()
                 answer();
             else if (str == "exit")
                 exit();
+                else if(str=="end") cicle=false;
             else
                 std::cout << "wrong command" << std::endl;
         }
@@ -80,10 +82,10 @@ int main()
                 }
             }
             str=str.substr(index_of+1,str.size()-index_of);
-            if(command=="Register") Register(str);
+            if(command=="register") Register(str);
             else if(command=="call") call(str);
             else if(command=="setName") setName(str);
         }
-    } while (str != "end");
+    } 
     return 0;
 }
