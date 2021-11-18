@@ -40,6 +40,7 @@ int main()
     bool cicle=true;
     while (cicle)
     {
+        std::cin.ignore();
         getline(std::cin,str);
         count_of_world = 1;
         for (int i = 1; i < str.size() - 1; i++)

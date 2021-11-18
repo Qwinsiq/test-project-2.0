@@ -1,7 +1,0 @@
-[
-  {
-    "directory": "/home/qwinsiq/Desktop/test_project/test/bin",
-    "command": "c++ -Imain_exe@exe -I. -I.. -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -g -MD -MQ 'main_exe@exe/main.cpp.o' -MF 'main_exe@exe/main.cpp.o.d' -o 'main_exe@exe/main.cpp.o' -c ../main.cpp",
-    "file": "../main.cpp"
-  }
-]
