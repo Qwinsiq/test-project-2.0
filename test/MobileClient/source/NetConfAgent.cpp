@@ -16,5 +16,5 @@ bool NetConfAgent::subscribeForModelChanges()
             called++;
             return sysrepo::ErrorCode::Ok;
         };
-    
+    session->onModuleChange("test_module", moduleChangeCb);
 }
