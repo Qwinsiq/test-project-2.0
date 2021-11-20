@@ -5,16 +5,17 @@ NetConfAgent::NetConfAgent()
 { 
 }
 
-bool NetConfAgent::subscribeForModelChanges()
+void NetConfAgent::subscribeForModelChanges()
 {
     connection=std::make_unique<sysrepo::Connection>();
-    std::unique_ptr<sysrepo::Session> q (new sysrepo::Session(connection->sessionStart()));
-    session=std::move(q);
-    session->copyConfig(sysrepo::Datastore::Startup, "test_module");
+    auto  session= connection->sessionStart();
+    session.copyConfig(sysrepo::Datastore::Startup,"testmodel");
     int called={0};
     sysrepo::ModuleChangeCb moduleChangeCb = [&called] (auto, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode {
             called++;
             return sysrepo::ErrorCode::Ok;
         };
-    session->onModuleChange("test_module", moduleChangeCb);
-}
+    auto subscription=session.onModuleChange("testmodel", moduleChangeCb);
+    subscription.onModuleChange("testmodel",moduleChangeCb);
+    std::cout<<"function called";
+    }

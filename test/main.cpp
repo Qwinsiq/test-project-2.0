@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "MobileClient/include/NetConfAgent.hpp"
 // at this moment i have done all function as void for the test
 void Register(std::string str)
 {
@@ -11,7 +12,7 @@ void unregister()
 }
 void call(std::string str)
 {
-    std::cout << "calling client" << str << std::endl;
+    std::cout << "calling client " << str << std::endl;
 }
 void callEnd()
 {
@@ -36,21 +37,13 @@ void setName(std::string str)
 int main()
 {
     std::string str, command;
-    int count_of_world;
     bool cicle=true;
+    NetConfAgent r;
+    r.subscribeForModelChanges();
     while (cicle)
     {
-        std::cin.ignore();
         getline(std::cin,str);
-        count_of_world = 1;
-        for (int i = 1; i < str.size() - 1; i++)
-        {
-            if (str[i - 1] != ' ' && str[i] == ' ' || str[i + 1] == '\0')
-            {
-                count_of_world++;
-            }
-        }
-        if (count_of_world == 1)
+        if(str.find(' ')==std::string::npos)
         {
             if (str == "unregister")
                 unregister();
@@ -66,27 +59,17 @@ int main()
             else
                 std::cout << "wrong command" << std::endl;
         }
-        else if (count_of_world > 1)
+        else if (str.find(' ')!=std::string::npos)
         {
-            int count_of_letter = 0, index_of = 0;
-            for (int i = 0; i < str.size(); i++)
-            {
-                if (str[i] != ' ')
-                {
-                    count_of_letter++;
-                    command.push_back(str[i]);
-                }
-                else if (str[i] == ' ')
-                {
-                    index_of = i;
-                    break;
-                }
-            }
-            str=str.substr(index_of+1,str.size()-index_of);
+            std::size_t start_pos=str.find_first_of(' ');
+            command=str.substr(0,start_pos);
+            str=str.substr(start_pos+1,str.length()-start_pos);
             if(command=="register") Register(str);
             else if(command=="call") call(str);
             else if(command=="setName") setName(str);
+            else std::cout<<"dont write\n";
         }
+        else std::cout<<" dont work\n";
     } 
     return 0;
 }

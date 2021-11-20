@@ -1,5 +1,5 @@
 # ninja log v5
-3	2935	1637320757	main_exe@exe/main.cpp.o	40e5862802fe6f6b
-0	6582	1637320760	MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o	766a96103d506228
-6583	6597	1637320760	MobileClient/libstc.a	766758742e295424
-6597	6819	1637320761	main_exe	56356a1a2a481c8f
+8	30199	1637403062	main_exe@exe/main.cpp.o	40e5862802fe6f6b
+0	31099	1637403063	MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o	766a96103d506228
+31099	31129	1637403063	MobileClient/libstc.a	766758742e295424
+31129	31979	1637403064	main_exe	56356a1a2a481c8f
