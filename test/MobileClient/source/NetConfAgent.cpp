@@ -9,7 +9,6 @@ void NetConfAgent::subscribeForModelChanges()
 {
     connection=std::make_unique<sysrepo::Connection>();
     auto  session= connection->sessionStart();
-    session.copyConfig(sysrepo::Datastore::Startup,"testmodel");
     int called={0};
     sysrepo::ModuleChangeCb moduleChangeCb = [&called] (auto, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode {
             called++;
@@ -17,5 +16,5 @@ void NetConfAgent::subscribeForModelChanges()
         };
     auto subscription=session.onModuleChange("testmodel", moduleChangeCb);
     subscription.onModuleChange("testmodel",moduleChangeCb);
-    std::cout<<"function called";
+    std::cout<<"function called "<<called<<std::endl;
     }

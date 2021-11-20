@@ -1,4 +1,4 @@
-Build started at 2021-11-20T12:10:27.664035
+Build started at 2021-11-20T19:16:30.036601
 Main binary: /usr/bin/python3
 Build Options: 
 Python system: Linux
@@ -74,8 +74,8 @@ Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
 -lsysrepo-cpp
 None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpwadkjqxp
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpwadkjqxp/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpwadkjqxp/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp5wmv9lfz
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp5wmv9lfz/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp5wmv9lfz/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
 
 Code:
  #include<stdio.h>
@@ -96,8 +96,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpqmc04o6l
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpqmc04o6l/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpqmc04o6l/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp3sndn1l6
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp3sndn1l6/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp3sndn1l6/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
 
 Code:
  
