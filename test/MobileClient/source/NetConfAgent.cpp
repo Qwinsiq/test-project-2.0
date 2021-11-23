@@ -1,23 +1,23 @@
 #include "/home/qwinsiq/Desktop/test_project/test/MobileClient/include/NetConfAgent.hpp"
 #include <iostream>
+#include <optional>
 
-NetConfAgent::NetConfAgent()
+NetConfAgent::NetConfAgent():connection(),session(connection.sessionStart())
 { 
+    session.copyConfig(sysrepo::Datastore::Startup, "commutator");
 }
-
+void NetConfAgent::fetchData(const char* path)
+{
+std::cout<<session.getData(path);
+}
 void NetConfAgent::subscribeForModelChanges()
 {
-    connection=std::make_unique<sysrepo::Connection>();
-    auto  session= connection->sessionStart();
-    session.copyConfig(sysrepo::Datastore::Startup, "test_module");
-    int called={0};
-    sysrepo::ModuleChangeCb moduleChangeCb = [&called] (auto, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode {
+        int called={0};
+    sysrepo::ModuleChangeCb moduleChangeCb = [&called] (sysrepo::Session session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode {
             called++;
+            std::cout<<"function called "<<called<<std::endl;
             return sysrepo::ErrorCode::Ok;
         };
-    auto subscription=session.onModuleChange("test_module", moduleChangeCb);
-    subscription.onModuleChange("test_module",moduleChangeCb);
-    session.setItem("/test_module:leafInt32", "123");
-    session.applyChanges();
-    std::cout<<"function called "<<called<<std::endl;
-    }
+   subscription= session.onModuleChange("commutator", moduleChangeCb, nullptr,0,sysrepo::SubscribeOptions::DoneOnly);
+   
+}
