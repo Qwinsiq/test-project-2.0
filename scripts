@@ -1,0 +1,16 @@
+<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <subscribers xmlns="commutator">
+        <subscriber>
+          <number>1233</number>
+          <userName>Mike</userName>
+          <incomingNumber>43123</incomingNumber>
+          <state>idle</state>
+        </subscriber>
+      </subscribers>
+    </config>
+  </edit-config>

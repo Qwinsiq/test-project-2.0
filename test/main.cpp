@@ -33,6 +33,7 @@ void exit()
 void setName(std::string str)
 {
     std::cout << "name " << str << " is setted" << std::endl;
+    
 }
 int main()
 {
@@ -42,8 +43,9 @@ int main()
     r.subscribeForModelChanges();
     while (cicle)
     {
+
         getline(std::cin,str);
-        if(str.find(' ')==std::string::npos)
+            if(str.find(' ')==std::string::npos)
         {
             if (str == "unregister")
                 unregister();

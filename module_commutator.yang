@@ -5,10 +5,10 @@ prefix com;
 	container subscribers{
 	config true;
 	list subscriber{
-		key "number";
-		leaf number{type uint32;}
+		key number;
+		leaf number{type string;}
 		leaf userName{type string; config false;}
-		leaf incomingNumber{type uint32;}
+		leaf incomingNumber{type string;}
 		leaf state{type enumeration{enum idle; enum busy; enum active;} default idle;}
 	}
 }	
