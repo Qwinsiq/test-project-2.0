@@ -10,10 +10,10 @@ NetConfAgent::NetConfAgent():connection(),session(connection.sessionStart())
 bool NetConfAgent::fetchData(std::string path,std::string& str )
 {
     const char* s=path.c_str();
-    auto r=session.getData(s);
-    str=r->asTerm().valueStr();
+    auto data=session.getData(s);
+    str=data->findPath(s).value().asTerm().valueStr();
     std::cout<<str;
-    if(!r)
+    if(!data)
     return true;
     else return false;
 }

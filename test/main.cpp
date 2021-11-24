@@ -41,7 +41,7 @@ int main()
     bool cicle=true;
     NetConfAgent r;
     std::string str1, str2;
-    str1="/commutator:subscribers";
+    str1="/commutator:subscribers/subscriber[number='133']/number";
     r.subscribeForModelChanges();
     if(!r.fetchData(str1,str2))
     std::cout<<str2;
