@@ -51,8 +51,8 @@ build main_exe@exe/main.cpp.o: cpp_COMPILER ../main.cpp
  DEPFILE = main_exe@exe/main.cpp.o.d
  ARGS = -Imain_exe@exe -I. -I.. -I../MobileClient/include -I../MobileClient/source -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g
 
-build main_exe: cpp_LINKER main_exe@exe/main.cpp.o | /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so MobileClient/libstc.a
- LINK_ARGS = -Wl,--as-needed -Wl,--no-undefined -Wl,--start-group MobileClient/libstc.a /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so -Wl,--end-group '-Wl,-rpath,$$ORIGIN/MobileClient' -Wl,-rpath-link,/home/qwinsiq/Desktop/test_project/test/bin/MobileClient
+build main_exe: cpp_LINKER main_exe@exe/main.cpp.o | /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so MobileClient/libstc.a
+ LINK_ARGS = -Wl,--as-needed -Wl,--no-undefined -Wl,--start-group MobileClient/libstc.a /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so -Wl,--end-group '-Wl,-rpath,$$ORIGIN/MobileClient' -Wl,-rpath-link,/home/qwinsiq/Desktop/test_project/test/bin/MobileClient
 
 # Test rules
 

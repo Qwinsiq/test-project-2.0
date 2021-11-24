@@ -2,6 +2,7 @@
 #include <sysrepo-cpp/Session.hpp>
 #include <sysrepo-cpp/Connection.hpp>
 #include <sysrepo-cpp/Subscription.hpp>
+#include <libyang-cpp/DataNode.hpp>
 #include <optional>
 
 class NetConfAgent

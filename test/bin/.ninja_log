@@ -1,2 +1,5 @@
 # ninja log v5
-0	10442	1637709910	main_exe@exe/main.cpp.o	40e5862802fe6f6b
+0	8878	1637757398	main_exe@exe/main.cpp.o	40e5862802fe6f6b
+0	9019	1637757398	MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o	766a96103d506228
+9019	9050	1637757398	MobileClient/libstc.a	766758742e295424
+9050	9444	1637757399	main_exe	4a4a7b7b94e7b332

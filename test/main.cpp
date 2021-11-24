@@ -41,9 +41,9 @@ int main()
     bool cicle=true;
     NetConfAgent r;
     std::string str1, str2;
-    str1="/commutator:subscribers/subscriber/number";
+    str1="/commutator:subscribers";
     r.subscribeForModelChanges();
-    r.fetchData(str1,str2);
+    if(!r.fetchData(str1,str2))
     std::cout<<str2;
     while (cicle)
     {

@@ -1,4 +1,4 @@
-Build started at 2021-11-24T01:24:56.072847
+Build started at 2021-11-24T14:36:24.094965
 Main binary: /usr/bin/python3
 Build Options: 
 Python system: Linux
@@ -74,8 +74,8 @@ Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
 -lsysrepo-cpp
 None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpzec8fnji
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpzec8fnji/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpzec8fnji/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpcta9idub
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpcta9idub/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpcta9idub/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
 
 Code:
  #include<stdio.h>
@@ -96,8 +96,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpeyzb2_yp
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpeyzb2_yp/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpeyzb2_yp/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp9m2cxen6
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp9m2cxen6/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp9m2cxen6/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
 
 Code:
  
@@ -109,6 +109,22 @@ libraries: =/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/.
 Compiler stderr:
  
 Run-time dependency sysrepo-cpp found: YES alpha
+Pkg-config binary for MachineChoice.HOST is cached.
+Determining dependency 'libyang-cpp' with pkg-config executable '/usr/bin/pkg-config'
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --modversion libyang-cpp` -> 0
+alpha
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --cflags libyang-cpp` -> 0
+
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
+-L/usr/lib/x86_64-linux-gnu -lyang-cpp
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
+-lyang-cpp
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Run-time dependency libyang-cpp found: YES alpha
 Build targets in project: 2
 
 Found ninja-1.8.2 at /usr/bin/ninja

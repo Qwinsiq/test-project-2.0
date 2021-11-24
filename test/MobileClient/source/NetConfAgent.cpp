@@ -5,14 +5,17 @@
 
 NetConfAgent::NetConfAgent():connection(),session(connection.sessionStart())
 { 
-    session.copyConfig(sysrepo::Datastore::Startup, "commutator");
+    session.copyConfig(sysrepo::Datastore::Running, "commutator");
 }
 bool NetConfAgent::fetchData(std::string path,std::string& str )
 {
     const char* s=path.c_str();
     auto r=session.getData(s);
-    str=r.printStr(0,0);
+    str=r->asTerm().valueStr();
     std::cout<<str;
+    if(!r)
+    return true;
+    else return false;
 }
 void NetConfAgent::subscribeForModelChanges()
 {
