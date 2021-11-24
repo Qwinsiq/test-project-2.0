@@ -13,7 +13,5 @@ class NetConfAgent
     public:
     NetConfAgent();
     void subscribeForModelChanges();
-    void fetchData(const char* path);
-
-    );
+    bool fetchData(std::string path, std::string& str);
    };

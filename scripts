@@ -7,7 +7,6 @@
       <subscribers xmlns="commutator">
         <subscriber>
           <number>1233</number>
-          <userName>Mike</userName>
           <incomingNumber>43123</incomingNumber>
           <state>idle</state>
         </subscriber>

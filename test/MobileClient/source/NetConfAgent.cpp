@@ -1,14 +1,18 @@
 #include "/home/qwinsiq/Desktop/test_project/test/MobileClient/include/NetConfAgent.hpp"
 #include <iostream>
 #include <optional>
+#include <string>
 
 NetConfAgent::NetConfAgent():connection(),session(connection.sessionStart())
 { 
     session.copyConfig(sysrepo::Datastore::Startup, "commutator");
 }
-void NetConfAgent::fetchData(const char* path)
+bool NetConfAgent::fetchData(std::string path,std::string& str )
 {
-std::cout<<session.getData(path);
+    const char* s=path.c_str();
+    auto r=session.getData(s);
+    str=r.printStr(0,0);
+    std::cout<<str;
 }
 void NetConfAgent::subscribeForModelChanges()
 {
