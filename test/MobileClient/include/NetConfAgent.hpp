@@ -9,7 +9,7 @@ class NetConfAgent
 {
     public:
     NetConfAgent();
-    void subscribeForModelChanges();
+    void subscribeForModelChanges(std::string path);
     bool fetchData(std::string path, std::string& str);
     void setData(const std::string path, std::string value);
    private:

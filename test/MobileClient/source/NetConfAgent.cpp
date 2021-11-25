@@ -3,7 +3,7 @@
 #include <optional>
 #include <string>
 
-NetConfAgent::NetConfAgent() : _connection(), _session(connection.sessionStart())
+NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart())
 {
     _session.copyConfig(sysrepo::Datastore::Running, "commutator");
 }
