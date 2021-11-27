@@ -1,1 +1,0 @@
-[{"name": "sysrepo-cpp", "version": "alpha", "compile_args": [], "link_args": ["/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so"]}, {"name": "libyang-cpp", "version": "alpha", "compile_args": [], "link_args": ["/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so"]}]

@@ -6,7 +6,7 @@
     <config>
       <subscribers xmlns="commutator">
         <subscriber>
-          <number>1233</number>
+          <number>133</number>
           <incomingNumber>43123</incomingNumber>
           <state>idle</state>
         </subscriber>

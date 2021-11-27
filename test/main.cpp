@@ -40,12 +40,18 @@ int main()
     std::string str, command;
     bool cicle=true;
     NetConfAgent r;
-    std::string str1, str2;
-    str1="/commutator:subscribers/subscriber[number='133']/number";
-    r.subscribeForModelChanges();
+    std::string str1, str2, str3;
+    str1="/commutator:subscribers/subscriber[number='133']/incomingNumber";
+    r.subscribeForModelChanges(str1);
     if(!r.fetchData(str1,str2))
     std::cout<<str2;
-    while (cicle)
+    str1="/commutator:subscribers/subscriber[number='133']/userName";
+    str2="Mike";
+    bool q=r.registerOperData(str1,str2);
+    if(!r.fetchData(str1,str3))
+    std::cout<<str3;
+    
+         while (cicle)
     {
 
         getline(std::cin,str);
