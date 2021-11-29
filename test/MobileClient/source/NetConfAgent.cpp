@@ -6,15 +6,15 @@
 
 NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart())
 {
-    _session.copyConfig(sysrepo::Datastore::Running, "commutator");
+    //_session.copyConfig(sysrepo::Datastore::Running, "commutator");
+   //_session.switchDatastore(sysrepo::Datastore::Operational);
 }
 bool NetConfAgent::fetchData(std::string path, std::string &str)
 {
-    const char *s = path.c_str();
-    auto data = _session.getData(s);
+    auto data = _session.getData(path.c_str());
     if (data != std::nullopt)
     {
-        str = data->findPath(s).value().asTerm().valueStr();
+        str = data->findPath(path.c_str()).value().asTerm().valueStr();
         std::cout << str;
         return true;
     }
@@ -41,19 +41,20 @@ void NetConfAgent::subscribeForModelChanges(std::string path)
     };
     _subscription = _session.onModuleChange("commutator", moduleChangeCb, s, 0, sysrepo::SubscribeOptions::DoneOnly);
 }
-bool NetConfAgent::registerOperData(std::string path, std::string value)
+bool NetConfAgent::registerOperData(std::string& path)
 {
-    const char *s = path.c_str();
-    const char *v = value.c_str();
-
-    sysrepo::OperGetItemsCb operGetCb = [&](sysrepo::Session, auto, auto, auto, auto, auto, std::optional<libyang::DataNode> &parent)
+        sysrepo::OperGetItemsCb operGetCb = [&](sysrepo::Session, auto, auto, auto, auto, auto, std::optional<libyang::DataNode> &parent)
     {
-        sysrepo::ErrorCode retCode;
-        std::optional<libyang::DataNode> toSet = _session.getContext().newPath(s, v);
-        parent = toSet;
+        char* value="Mike";
         std::cout << "call back is called\n";
+        sysrepo::ErrorCode retCode;
+        std::optional<libyang::DataNode> toSet = _session.getContext().newPath(path.c_str(),value);
+        parent = toSet;
         return retCode;
     };
-    _subscription = _session.onOperGetItems("commutator", operGetCb,s);
+    
+    _subscription = _session.onOperGetItems("commutator", operGetCb, path.c_str());
+    _session.switchDatastore(sysrepo::Datastore::Operational);
+    std::cout<<" metod is called \n";
     return true;
 }

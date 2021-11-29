@@ -1,0 +1,132 @@
+Build started at 2021-11-29T14:58:11.114795
+Main binary: /usr/bin/python3
+Build Options: 
+Python system: Linux
+The Meson build system
+Version: 0.54.2
+Source dir: /home/qwinsiq/Desktop/test_project/test
+Build dir: /home/qwinsiq/Desktop/test_project/test/bin
+Build type: native build
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Project name: test
+Project version: undefined
+None of 'CXX' are defined in the environment, not changing global flags.
+None of 'CXXFLAGS' are defined in the environment, not changing global flags.
+None of 'LDFLAGS' are defined in the environment, not changing global flags.
+None of 'CPPFLAGS' are defined in the environment, not changing global flags.
+None of 'CXX_LD' are defined in the environment, not changing global flags.
+Sanity testing C++ compiler: c++
+Is cross compiler: False.
+Sanity check compiler command line: c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.cc -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe
+C++ compiler for the build machine: c++ (gcc 10.3.0 "c++ (Ubuntu 10.3.0-1ubuntu1~18.04~1) 10.3.0")
+C++ linker for the build machine: c++ ld.bfd 2.30
+None of 'AR' are defined in the environment, not changing global flags.
+None of 'CXX' are defined in the environment, not changing global flags.
+None of 'CXXFLAGS' are defined in the environment, not changing global flags.
+None of 'LDFLAGS' are defined in the environment, not changing global flags.
+None of 'CPPFLAGS' are defined in the environment, not changing global flags.
+None of 'CXX_LD' are defined in the environment, not changing global flags.
+Sanity testing C++ compiler: c++
+Is cross compiler: False.
+Sanity check compiler command line: c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.cc -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe
+C++ compiler for the host machine: c++ (gcc 10.3.0 "c++ (Ubuntu 10.3.0-1ubuntu1~18.04~1) 10.3.0")
+C++ linker for the host machine: c++ ld.bfd 2.30
+None of 'AR' are defined in the environment, not changing global flags.
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Pkg-config binary for MachineChoice.HOST is not cached.
+None of 'PKG_CONFIG' are defined in the environment, not changing global flags.
+Pkg-config binary missing from cross or native file, or env var undefined.
+Trying a default Pkg-config fallback at pkg-config
+Trying pkg-config binary pkg-config for machine MachineChoice.HOST at ['/usr/bin/pkg-config']
+Found pkg-config: /usr/bin/pkg-config (0.29.1)
+Determining dependency 'sysrepo-cpp' with pkg-config executable '/usr/bin/pkg-config'
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --modversion sysrepo-cpp` -> 0
+alpha
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --cflags sysrepo-cpp` -> 0
+
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
+-L/usr/lib/x86_64-linux-gnu -lsysrepo-cpp
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
+-lsysrepo-cpp
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Running compile:
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpztdnqvws
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpztdnqvws/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpztdnqvws/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
+
+Code:
+ #include<stdio.h>
+        
+        int main(void) {
+            printf("%ld\n", (long)(sizeof(void *)));
+            return 0;
+        };
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Program stdout:
+
+8
+
+Program stderr:
+
+
+Running compile:
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmporeyniuy
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmporeyniuy/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmporeyniuy/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-linux-gnu/10/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/:/lib/x86_64-linux-gnu/10/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/10/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 
+Run-time dependency sysrepo-cpp found: YES alpha
+Pkg-config binary for MachineChoice.HOST is cached.
+Determining dependency 'libyang-cpp' with pkg-config executable '/usr/bin/pkg-config'
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --modversion libyang-cpp` -> 0
+alpha
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --cflags libyang-cpp` -> 0
+
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
+-L/usr/lib/x86_64-linux-gnu -lyang-cpp
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
+-lyang-cpp
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Run-time dependency libyang-cpp found: YES alpha
+Build targets in project: 2
+
+Found ninja-1.8.2 at /usr/bin/ninja
+None of 'STRIP' are defined in the environment, not changing global flags.
+None of 'STRIP' are defined in the environment, not changing global flags.

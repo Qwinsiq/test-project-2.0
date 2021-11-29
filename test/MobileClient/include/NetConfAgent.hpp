@@ -11,7 +11,7 @@ class NetConfAgent
     NetConfAgent();
     void subscribeForModelChanges(std::string path);
     bool fetchData(std::string path, std::string& str);
-    bool registerOperData(std::string path, std::string value);
+    bool registerOperData(std::string& path);
     void changeData(const std::string path, std::string value);
    private:
     sysrepo::Connection  _connection;
