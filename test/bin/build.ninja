@@ -44,7 +44,11 @@ build MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o: cpp_COMPILER ../M
  DEPFILE = MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o.d
  ARGS = -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC
 
-build MobileClient/libstc.a: STATIC_LINKER MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o
+build MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o: cpp_COMPILER ../MobileClient/./source/MobileClient.cpp
+ DEPFILE = MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o.d
+ ARGS = -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC
+
+build MobileClient/libstc.a: STATIC_LINKER MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o
  LINK_ARGS = csrD
 
 build main_exe@exe/main.cpp.o: cpp_COMPILER ../main.cpp

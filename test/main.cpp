@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "MobileClient/include/NetConfAgent.hpp"
+#include "MobileClient/include/MobileClient.hpp"
 // at this moment i have done all function as void for the test
 void Register(std::string str)
 {
@@ -39,18 +40,21 @@ int main()
 {
     std::string str, command;
     bool cicle=true;
-    NetConfAgent r;
-    std::string str1, str2, str3;
-    str1="/commutator:subscribers/subscriber[number='133']/incomingNumber";
-    str3="6666";
-   // r.subscribeForModelChanges(str1);
-      r.changeData(str1,str3);
-    if(!r.fetchData(str1,str2))
-    std::cout<<str2;
-    std::string str4="/commutator:subscribers/subscriber[number='133']/userName";
-    bool q=r.registerOperData(str4);
-    if(!r.fetchData(str4,str3))
-    std::cout<<str3;
+   // NetConfAgent r;
+      MobileClient m;
+     std::string str1, str2, str3, str7;
+   // str1="/commutator:subscribers/subscriber[number='133']/incomingNumber";
+    getline(std::cin,str2);
+    m.Register(str2);
+    //r.subscribeForModelChanges(str1);
+   //   r.changeData(str1,str2);
+  //  if(!r.fetchData(str1,str3))
+   // std::cout<<str3;
+   // std::string str4="/commutator:subscribers/subscriber[number='133']/userName";
+    //str2="mike";
+   // bool q=r.registerOperData(str4, str2);
+   // if(!r.fetchData(str4,str7))
+    //std::cout<<str7;
     
     
          while (cicle)
@@ -78,9 +82,9 @@ int main()
             std::size_t start_pos=str.find_first_of(' ');
             command=str.substr(0,start_pos);
             str=str.substr(start_pos+1,str.length()-start_pos);
-            if(command=="register") Register(str);
+            if(command=="register") m.Register(str);
             else if(command=="call") call(str);
-            else if(command=="setName") setName(str);
+            else if(command=="setName") m.setName(str);
             else std::cout<<"dont write\n";
         }
         else std::cout<<" dont work\n";
