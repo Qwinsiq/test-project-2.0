@@ -15,7 +15,7 @@ enum class state
      bool Register(std::string number);
      void setName(std::string name);
      bool call(std::string number);
-     void handleModuleChange();
+     void handleModuleChange(std::string path, std::string value);
      
      private:
      std::string _name;

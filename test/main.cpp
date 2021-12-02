@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
-#include "MobileClient/include/NetConfAgent.hpp"
-#include "MobileClient/include/MobileClient.hpp"
-// at this moment i have done all function as void for the test
+#include "MobileClient.hpp"
+
 void Register(std::string str)
 {
     std::cout << "The client " << str << " is registraited" << std::endl;
@@ -83,7 +82,7 @@ int main()
             command=str.substr(0,start_pos);
             str=str.substr(start_pos+1,str.length()-start_pos);
             if(command=="register") m.Register(str);
-            else if(command=="call") call(str);
+            else if(command=="call") m.call(str);
             else if(command=="setName") m.setName(str);
             else std::cout<<"dont write\n";
         }

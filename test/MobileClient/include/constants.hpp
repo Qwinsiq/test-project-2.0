@@ -7,5 +7,6 @@ namespace
     const string incomingnumberPath="/commutator:subscribers/subscriber[number='key']/incomingNumber";
     const string statePath="/commutator:subscribers/subscriber[number='key']/state";
     const string userNamePath="/commutator:subscribers/subscriber[number='key']/userName";
+    const string subscriberPath="/commutator:subscribers/subscriber[number='key']";
     const string moduleNameCom="commutator";
 }

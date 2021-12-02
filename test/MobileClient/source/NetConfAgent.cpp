@@ -1,9 +1,9 @@
-#include "/home/qwinsiq/Desktop/test_project/test/MobileClient/include/NetConfAgent.hpp"
+#include "NetConfAgent.hpp"
 #include <iostream>
 #include <optional>
 #include <string>
 #include <atomic>
-
+#include "MobileClient.hpp"
 NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart())
 {
     
@@ -32,15 +32,23 @@ void NetConfAgent::changeData(const std::string path, std::string value)
     _session.setItem(s, r);
     _session.applyChanges();
 }
-void NetConfAgent::subscribeForModelChanges(std::string path)
+void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient& client)
 {
     const char *s = path.c_str();
-    sysrepo::ModuleChangeCb moduleChangeCb = [](sysrepo::Session _session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
+        sysrepo::ModuleChangeCb moduleChangeCb = [&client](sysrepo::Session _session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
     {
-        std::cout << " change Data form callback in subscribeForModelChange\n";
+        auto change=_session.getChanges(); 
+        for (auto r:change)
+        {
+            if(r.node.schema().nodeType() == libyang::NodeType::Leaf)
+            {
+              client.handleModuleChange(static_cast<std::string> (r.node.schema().path()), static_cast<std::string>(r.node.schema().name()));
+            }
+            
+        }
         return sysrepo::ErrorCode::Ok;
     };
-    _subscription = _session.onModuleChange("commutator", moduleChangeCb, s, 0, sysrepo::SubscribeOptions::DoneOnly);
+    _subscription = _session.onModuleChange(moduleNameCom.c_str(), moduleChangeCb, s, 0, sysrepo::SubscribeOptions::DoneOnly);
 }
 bool NetConfAgent::registerOperData(std::string &path, std::string value)
 {

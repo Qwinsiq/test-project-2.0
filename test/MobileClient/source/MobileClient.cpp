@@ -1,5 +1,6 @@
-#include </home/qwinsiq/Desktop/test_project/test/MobileClient/include/MobileClient.hpp>
+#include "MobileClient.hpp"
 #include <iostream>
+
 MobileClient::MobileClient()
 {
     _netConfAgent = std::make_unique<NetConfAgent>();
@@ -27,24 +28,24 @@ bool MobileClient::Register(std::string number)
     else
     {
         _netConfAgent->changeData(makePath(_number, numberPath), _number);
-        _netConfAgent->subscribeForModelChanges(makePath(_number, numberPath));
+        _netConfAgent->subscribeForModelChanges(makePath(_number, subscriberPath), *this);
         return true;
     }
 }
-bool MobileClient::call(std::string name)
+bool MobileClient::call(std::string number)
 {
     std::string tempStr;
     if (_netConfAgent->fetchData(makePath(_number, numberPath), tempStr))
     {
-        if (_netConfAgent->fetchData(makePath(name, numberPath), tempStr))
+        if (_netConfAgent->fetchData(makePath(number, numberPath), tempStr))
         {
-            if (_netConfAgent->fetchData(makePath(name, incomingnumberPath), tempStr))
+            if (_netConfAgent->fetchData(makePath(number, statePath), tempStr))
             {
                 if (tempStr == "idle")
                 {
-                    _netConfAgent->changeData(makePath(name, statePath), "active");
+                    _netConfAgent->changeData(makePath(number, statePath), "active");
                     _netConfAgent->changeData(makePath(_number, statePath), "active");
-                    _netConfAgent->changeData(makePath(name, incomingnumberPath), _number);
+                    _netConfAgent->changeData(makePath(number, incomingnumberPath), _number);
                     return true;
                 }
                 else
@@ -59,4 +60,8 @@ bool MobileClient::call(std::string name)
     else
         std::cout << "Caller is not exist\n";
     return false;
+}
+void MobileClient::handleModuleChange(std::string path, std::string value)
+{
+    std::cout << "abonent " << value << " is calling\n";
 }
