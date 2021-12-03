@@ -8,7 +8,7 @@ MobileClient::MobileClient()
 const std::string MobileClient::makePath(std::string number, const std::string path)
 {
     std::string str = path;
-    str.replace(str.find("key"), str.rfind("key"), number);
+    str.replace(str.find("key"), 3, number);
     return str;
 }
 void MobileClient::setName(std::string name)
@@ -49,7 +49,7 @@ bool MobileClient::call(std::string number)
                     return true;
                 }
                 else
-                    std::cout << "Number is " << tempStr << std::endl;
+                    std::cout << "Number " << number << " is not free " << std::endl;
             }
             else
                 std::cout << "State of callNumber is not defined\n";
@@ -63,5 +63,13 @@ bool MobileClient::call(std::string number)
 }
 void MobileClient::handleModuleChange(std::string path, std::string value)
 {
-    std::cout << "abonent " << value << " is calling\n";
+    if (path == makePath(_number,incomingnumberPath))
+    {
+        std::cout << " incoming call from " << value << std::endl;
+    }
+}
+void MobileClient::answer()
+{
+    _netConfAgent->changeData(makePath(_number,statePath),"busy");
+    _netConfAgent->changeData(makePath(_incomingNumber,statePath),"busy");
 }

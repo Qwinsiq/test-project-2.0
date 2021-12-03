@@ -16,12 +16,10 @@ bool NetConfAgent::fetchData(std::string path, std::string &str)
     if (data != std::nullopt)
     {
         str = data->findPath(path.c_str()).value().asTerm().valueStr();
-        std::cout << str;
         return true;
     }
     else
     {
-        std::cout << "Data is empty";
         return false;
     }
 }
@@ -34,21 +32,20 @@ void NetConfAgent::changeData(const std::string path, std::string value)
 }
 void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient& client)
 {
-    const char *s = path.c_str();
-        sysrepo::ModuleChangeCb moduleChangeCb = [&client](sysrepo::Session _session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
+        sysrepo::ModuleChangeCb moduleChangeCb = [&](sysrepo::Session _session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
     {
         auto change=_session.getChanges(); 
         for (auto r:change)
         {
             if(r.node.schema().nodeType() == libyang::NodeType::Leaf)
             {
-              client.handleModuleChange(static_cast<std::string> (r.node.schema().path()), static_cast<std::string>(r.node.schema().name()));
+                client.handleModuleChange(static_cast<std::string> (r.node.path()), static_cast<std::string>(r.node.asTerm().valueStr()));
             }
             
         }
         return sysrepo::ErrorCode::Ok;
     };
-    _subscription = _session.onModuleChange(moduleNameCom.c_str(), moduleChangeCb, s, 0, sysrepo::SubscribeOptions::DoneOnly);
+    _subscription = _session.onModuleChange(moduleNameCom.c_str(), moduleChangeCb, path.c_str(), 0, sysrepo::SubscribeOptions::DoneOnly);
 }
 bool NetConfAgent::registerOperData(std::string &path, std::string value)
 {

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "MobileClient.hpp"
-
+// at this moment i have done all function as void for the test
 void Register(std::string str)
 {
     std::cout << "The client " << str << " is registraited" << std::endl;
@@ -43,8 +43,8 @@ int main()
       MobileClient m;
      std::string str1, str2, str3, str7;
    // str1="/commutator:subscribers/subscriber[number='133']/incomingNumber";
-    getline(std::cin,str2);
-    m.Register(str2);
+   // getline(std::cin,str2);
+   // m.Register(str2);
     //r.subscribeForModelChanges(str1);
    //   r.changeData(str1,str2);
   //  if(!r.fetchData(str1,str3))
@@ -69,7 +69,7 @@ int main()
             else if (str == "reject")
                 reject();
             else if (str == "answer")
-                answer();
+                m.answer();
             else if (str == "exit")
                 exit();
                 else if(str=="end") cicle=false;
