@@ -65,9 +65,9 @@ int main()
             if (str == "unregister")
                 unregister();
             else if (str == "callEnd")
-                callEnd();
+                m.callEnd();
             else if (str == "reject")
-                reject();
+                m.reject();
             else if (str == "answer")
                 m.answer();
             else if (str == "exit")
