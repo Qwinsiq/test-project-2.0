@@ -65,7 +65,15 @@ void MobileClient::handleModuleChange(std::string path, std::string value)
 {
     if (path == makePath(_number,incomingnumberPath))
     {
-        std::cout << " incoming call from " << value << std::endl;
+        std::cout << ">> incoming call from " << value << std::endl;
+    }
+    else if (path==makePath(_number,statePath)&& value=="buzy")
+    {
+        std::cout<<">> The call is in progress \n";
+    }
+    else if (path==makePath(_number,statePath)&& value=="idle")
+    {
+        std::cout<<">> The call is ended \n";
     }
 }
 void MobileClient::answer()
