@@ -6,7 +6,8 @@ enum class state
 {
  idle,
  busy,
- active
+ incoming,
+ outgoing,
 };
  class MobileClient
  {

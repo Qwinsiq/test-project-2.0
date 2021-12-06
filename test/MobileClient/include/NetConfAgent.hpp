@@ -15,6 +15,7 @@ class NetConfAgent
     bool fetchData(std::string path, std::string& str);
     bool registerOperData(std::string& path, std::string value);
     void changeData(const std::string path, std::string value);
+    void deleteData(const std::string path);
    private:
     sysrepo::Connection  _connection;
     sysrepo::Session _session;

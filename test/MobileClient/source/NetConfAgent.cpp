@@ -23,6 +23,11 @@ bool NetConfAgent::fetchData(std::string path, std::string &str)
         return false;
     }
 }
+void NetConfAgent::deleteData(const std::string path)
+{
+    _session.deleteItem(path.c_str());
+    _session.applyChanges();
+}
 void NetConfAgent::changeData(const std::string path, std::string value)
 {
     const char *s = path.c_str();
@@ -40,8 +45,7 @@ void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient& clie
             if(r.node.schema().nodeType() == libyang::NodeType::Leaf)
             {
                 client.handleModuleChange(static_cast<std::string> (r.node.path()), static_cast<std::string>(r.node.asTerm().valueStr()));
-            }
-            
+            }        
         }
         return sysrepo::ErrorCode::Ok;
     };

@@ -46,6 +46,8 @@ bool MobileClient::call(std::string number)
                     _netConfAgent->changeData(makePath(number, statePath), "active");
                     _netConfAgent->changeData(makePath(_number, statePath), "active");
                     _netConfAgent->changeData(makePath(number, incomingnumberPath), _number);
+                    _incomingNumber = number;
+                    _state = state::outgoing;
                     return true;
                 }
                 else
@@ -63,25 +65,34 @@ bool MobileClient::call(std::string number)
 }
 void MobileClient::handleModuleChange(std::string path, std::string value)
 {
-    if (path == makePath(_number, incomingnumberPath))
+    if (path == makePath(_number, statePath))
     {
+        if (value == "busy")
+        {
+            _state = state::busy;
+            std::cout << ">> The call is in progress " << std::endl;
+        }
+
+        else if (value == "idle")
+        {
+            _state = state::idle;
+            _incomingNumber.erase();
+            std::cout << ">> The call is ended " << std::endl;
+        }
+    }
+    else if (path == makePath(_number, incomingnumberPath) && _state != state::idle && _state != state::busy)
+    {
+        _incomingNumber = value;
         std::cout << ">> incoming call from " << value << std::endl;
     }
-    else if (path == makePath(_number, statePath) && value == "buzy")
-    {
-        std::cout << ">> The call is in progress \n";
-    }
-    else if (path == makePath(_number, statePath) && value == "idle")
-    {
-        std::cout << ">> The call is ended \n";
-    }
 }
+
 void MobileClient::answer()
 {
     std::string temp1, temp2;
-    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) &&
-        _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
-        temp1 == "active" && temp2 == "active")
+    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
+            _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+        temp1 == "active" && _state != state::outgoing)
     {
         _netConfAgent->changeData(makePath(_number, statePath), "busy");
         _netConfAgent->changeData(makePath(_incomingNumber, statePath), "busy");
@@ -90,24 +101,27 @@ void MobileClient::answer()
 void MobileClient::callEnd()
 {
     std::string temp1, temp2;
-    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) &&
-        _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
-        temp1 == "busy" && temp2 == "busy")
+    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
+            _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+        temp2 == "busy")
     {
-        _netConfAgent->changeData(makePath(_number, statePath), "idle");
         _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
-        _netConfAgent->changeData(makePath(_number, incomingnumberPath), nullptr);
+        _netConfAgent->changeData(makePath(_number, statePath), "idle");
+
+        //_netConfAgent->deleteData(makePath(_incomingNumber, incomingnumberPath));
+        _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
     }
 }
 void MobileClient::reject()
 {
     std::string temp1, temp2;
-    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) &&
-        _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
-        temp1 == "active" && temp2 == "active")
+    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
+            _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+        temp2 == "active" && _state != state::outgoing)
     {
-        _netConfAgent->changeData(makePath(_number, statePath), "idle");
         _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
-        _netConfAgent->changeData(makePath(_number, incomingnumberPath), nullptr);
+        _netConfAgent->changeData(makePath(_number, statePath), "idle");
+        
+        _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
     }
 }
