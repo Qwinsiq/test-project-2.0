@@ -63,21 +63,51 @@ bool MobileClient::call(std::string number)
 }
 void MobileClient::handleModuleChange(std::string path, std::string value)
 {
-    if (path == makePath(_number,incomingnumberPath))
+    if (path == makePath(_number, incomingnumberPath))
     {
         std::cout << ">> incoming call from " << value << std::endl;
     }
-    else if (path==makePath(_number,statePath)&& value=="buzy")
+    else if (path == makePath(_number, statePath) && value == "buzy")
     {
-        std::cout<<">> The call is in progress \n";
+        std::cout << ">> The call is in progress \n";
     }
-    else if (path==makePath(_number,statePath)&& value=="idle")
+    else if (path == makePath(_number, statePath) && value == "idle")
     {
-        std::cout<<">> The call is ended \n";
+        std::cout << ">> The call is ended \n";
     }
 }
 void MobileClient::answer()
 {
-    _netConfAgent->changeData(makePath(_number,statePath),"busy");
-    _netConfAgent->changeData(makePath(_incomingNumber,statePath),"busy");
+    std::string temp1, temp2;
+    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) &&
+        _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+        temp1 == "active" && temp2 == "active")
+    {
+        _netConfAgent->changeData(makePath(_number, statePath), "busy");
+        _netConfAgent->changeData(makePath(_incomingNumber, statePath), "busy");
+    }
+}
+void MobileClient::callEnd()
+{
+    std::string temp1, temp2;
+    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) &&
+        _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+        temp1 == "busy" && temp2 == "busy")
+    {
+        _netConfAgent->changeData(makePath(_number, statePath), "idle");
+        _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
+        _netConfAgent->changeData(makePath(_number, incomingnumberPath), nullptr);
+    }
+}
+void MobileClient::reject()
+{
+    std::string temp1, temp2;
+    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) &&
+        _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+        temp1 == "active" && temp2 == "active")
+    {
+        _netConfAgent->changeData(makePath(_number, statePath), "idle");
+        _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
+        _netConfAgent->changeData(makePath(_number, incomingnumberPath), nullptr);
+    }
 }
