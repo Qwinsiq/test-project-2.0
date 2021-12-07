@@ -46,8 +46,7 @@ bool MobileClient::call(std::string number)
                     _netConfAgent->changeData(makePath(number, statePath), "active");
                     _netConfAgent->changeData(makePath(_number, statePath), "active");
                     _netConfAgent->changeData(makePath(number, incomingnumberPath), _number);
-                    _incomingNumber = number;
-                    _state = state::outgoing;
+                    _out = number;
                     return true;
                 }
                 else
@@ -76,14 +75,22 @@ void MobileClient::handleModuleChange(std::string path, std::string value)
         else if (value == "idle")
         {
             _state = state::idle;
+            _out.erase();
             _incomingNumber.erase();
             std::cout << ">> The call is ended " << std::endl;
         }
+        else if (value == "active")
+        {
+            _state = state::active;
+        }
     }
-    else if (path == makePath(_number, incomingnumberPath) && _state != state::idle && _state != state::busy)
+    else if (path == makePath(_number, incomingnumberPath))
     {
-        _incomingNumber = value;
-        std::cout << ">> incoming call from " << value << std::endl;
+        if (_state == state::active)
+        {
+            _incomingNumber = value;
+            std::cout << ">> incoming call from " << value << std::endl;
+        }
     }
 }
 
@@ -92,7 +99,7 @@ void MobileClient::answer()
     std::string temp1, temp2;
     if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
             _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
-        temp1 == "active" && _state != state::outgoing)
+        temp1 == "active" && _out.empty())
     {
         _netConfAgent->changeData(makePath(_number, statePath), "busy");
         _netConfAgent->changeData(makePath(_incomingNumber, statePath), "busy");
@@ -101,15 +108,31 @@ void MobileClient::answer()
 void MobileClient::callEnd()
 {
     std::string temp1, temp2;
-    if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
-            _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
-        temp2 == "busy")
-    {
-        _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
-        _netConfAgent->changeData(makePath(_number, statePath), "idle");
 
-        //_netConfAgent->deleteData(makePath(_incomingNumber, incomingnumberPath));
-        _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
+    {
+        if (_out.empty())
+        {
+            if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
+                    _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
+                temp2 == "busy")
+            {
+                _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
+                _netConfAgent->changeData(makePath(_number, statePath), "idle");
+                _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
+            }
+        }
+        else
+        {
+            if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
+                    _netConfAgent->fetchData(makePath(_out, statePath), temp2) &&
+                temp2 == "busy")
+
+            {
+                _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
+                _netConfAgent->changeData(makePath(_out, statePath), "idle");
+                _netConfAgent->changeData(makePath(_number, statePath), "idle");
+            }
+        }
     }
 }
 void MobileClient::reject()
@@ -117,11 +140,24 @@ void MobileClient::reject()
     std::string temp1, temp2;
     if (_netConfAgent->fetchData(makePath(_number, statePath), temp1) ==
             _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
-        temp2 == "active" && _state != state::outgoing)
+        temp2 == "active" && _out.empty())
     {
         _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
         _netConfAgent->changeData(makePath(_number, statePath), "idle");
-        
         _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
+    }
+}
+bool MobileClient::unregister()
+{
+    if (_incomingNumber.empty() && _out.empty())
+    {
+        _netConfAgent->deleteData(makePath(_number, subscriberPath));
+        std::cout << "abonent is unregistered \n";
+        return true;
+    }
+    else
+    {
+        std::cout << " abonent cant't be deleted, he has active call\n";
+        return false;
     }
 }

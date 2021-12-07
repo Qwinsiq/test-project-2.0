@@ -6,8 +6,7 @@ enum class state
 {
  idle,
  busy,
- incoming,
- outgoing,
+ active
 };
  class MobileClient
  {
@@ -16,6 +15,7 @@ enum class state
      bool Register(std::string number);
      void setName(std::string name);
      bool call(std::string number);
+     bool unregister();
      void answer();
      void callEnd();
      void reject();
@@ -26,6 +26,7 @@ enum class state
      std::string _number;
      std::string _incomingNumber;
      state _state;
+     std::string _out;
      
      std::unique_ptr<NetConfAgent> _netConfAgent;
  };

@@ -1,31 +1,7 @@
 #include <iostream>
 #include <string>
 #include "MobileClient.hpp"
-// at this moment i have done all function as void for the test
-void Register(std::string str)
-{
-    std::cout << "The client " << str << " is registraited" << std::endl;
-}
-void unregister()
-{
-    std::cout << " function unregicter is called"<<std::endl;;
-}
-void call(std::string str)
-{
-    std::cout << "calling client " << str << std::endl;
-}
-void callEnd()
-{
-    std::cout << "function callEnd is called" << std::endl;
-}
-void answer()
-{
-    std::cout << "function answer is called" << std::endl;
-}
-void reject()
-{
-    std::cout << "function reject is called" << std::endl;
-}
+
 void exit()
 {
     std::cout << "function exit is called" << std::endl;
@@ -39,23 +15,7 @@ int main()
 {
     std::string str, command;
     bool cicle=true;
-   // NetConfAgent r;
-      MobileClient m;
-     std::string str1, str2, str3, str7;
-   // str1="/commutator:subscribers/subscriber[number='133']/incomingNumber";
-   // getline(std::cin,str2);
-   // m.Register(str2);
-    //r.subscribeForModelChanges(str1);
-   //   r.changeData(str1,str2);
-  //  if(!r.fetchData(str1,str3))
-   // std::cout<<str3;
-   // std::string str4="/commutator:subscribers/subscriber[number='133']/userName";
-    //str2="mike";
-   // bool q=r.registerOperData(str4, str2);
-   // if(!r.fetchData(str4,str7))
-    //std::cout<<str7;
-    
-    
+         MobileClient m;
          while (cicle)
     {
 
@@ -63,7 +23,7 @@ int main()
             if(str.find(' ')==std::string::npos)
         {
             if (str == "unregister")
-                unregister();
+                m.unregister();
             else if (str == "callEnd")
                 m.callEnd();
             else if (str == "reject")
