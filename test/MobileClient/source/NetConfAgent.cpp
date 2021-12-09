@@ -44,9 +44,9 @@ void NetConfAgent::changeData(const std::string path, std::string value)
 }
 void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient &client)
 {
-    sysrepo::ModuleChangeCb moduleChangeCb = [&](sysrepo::Session _session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
+    sysrepo::ModuleChangeCb moduleChangeCb = [&](sysrepo::Session session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
     {
-        auto change = _session.getChanges();
+        auto change = session.getChanges();
         for (auto r : change)
         {
             if (r.node.schema().nodeType() == libyang::NodeType::Leaf)
