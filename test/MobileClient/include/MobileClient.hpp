@@ -19,6 +19,7 @@ enum class state
      void answer();
      void callEnd();
      void reject();
+     std::string getName();
      void handleModuleChange(std::string path, std::string value);
      const std::string makePath(std::string number, std::string leaf);
      private:

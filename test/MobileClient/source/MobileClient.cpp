@@ -17,6 +17,7 @@ void MobileClient::setName(std::string name)
 }
 bool MobileClient::Register(std::string number)
 {
+
     _number = number;
     std::string temp;
     if (_netConfAgent->fetchData(makePath(number, numberPath), temp))
@@ -29,6 +30,8 @@ bool MobileClient::Register(std::string number)
     {
         _netConfAgent->changeData(makePath(_number, numberPath), _number);
         _netConfAgent->subscribeForModelChanges(makePath(_number, subscriberPath), *this);
+        _netConfAgent->registerOperData(makePath(_number, userNamePath), *this);
+
         return true;
     }
 }
@@ -62,6 +65,10 @@ bool MobileClient::call(std::string number)
         std::cout << "Caller is not exist\n";
     return false;
 }
+std::string MobileClient::getName()
+{
+    return _name;
+}
 void MobileClient::handleModuleChange(std::string path, std::string value)
 {
     if (path == makePath(_number, statePath))
@@ -89,7 +96,9 @@ void MobileClient::handleModuleChange(std::string path, std::string value)
         if (_state == state::active)
         {
             _incomingNumber = value;
-            std::cout << ">> incoming call from " << value << std::endl;
+            std::string str;
+            if( _netConfAgent->fetchData(makePath(value,userNamePath),str))
+            std::cout << ">> incoming call from " << value << " "<< str <<std::endl;
         }
     }
 }
@@ -116,9 +125,9 @@ void MobileClient::callEnd()
                     _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
                 temp2 == "busy")
             {
+                _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
-                _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
             }
         }
         else
@@ -142,9 +151,9 @@ void MobileClient::reject()
             _netConfAgent->fetchData(makePath(_incomingNumber, statePath), temp2) &&
         temp2 == "active" && _out.empty())
     {
+        _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
         _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
         _netConfAgent->changeData(makePath(_number, statePath), "idle");
-        _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
     }
 }
 bool MobileClient::unregister()

@@ -6,9 +6,7 @@
 #include "MobileClient.hpp"
 NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart())
 {
-    
-    //_session.switchDatastore(sysrepo::Datastore::Operational);
-    //_session.copyConfig(sysrepo::Datastore::Running, "commutator");
+
 }
 bool NetConfAgent::fetchData(std::string path, std::string &str)
 {
@@ -20,7 +18,16 @@ bool NetConfAgent::fetchData(std::string path, std::string &str)
     }
     else
     {
-        return false;
+        _session.switchDatastore(sysrepo::Datastore::Operational);
+        data = _session.getData(path.c_str());
+        _session.switchDatastore(sysrepo::Datastore::Running);
+        if (data != std::nullopt)
+        {
+            str = data->findPath(path.c_str()).value().asTerm().valueStr();
+            return true;
+        }
+        else
+            return false;
     }
 }
 void NetConfAgent::deleteData(const std::string path)
@@ -35,38 +42,32 @@ void NetConfAgent::changeData(const std::string path, std::string value)
     _session.setItem(s, r);
     _session.applyChanges();
 }
-void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient& client)
+void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient &client)
 {
-        sysrepo::ModuleChangeCb moduleChangeCb = [&](sysrepo::Session _session, auto, auto, auto,auto, auto) -> sysrepo::ErrorCode
+    sysrepo::ModuleChangeCb moduleChangeCb = [&](sysrepo::Session _session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
     {
-        auto change=_session.getChanges(); 
-        for (auto r:change)
+        auto change = _session.getChanges();
+        for (auto r : change)
         {
-            if(r.node.schema().nodeType() == libyang::NodeType::Leaf)
+            if (r.node.schema().nodeType() == libyang::NodeType::Leaf)
             {
-                client.handleModuleChange(static_cast<std::string> (r.node.path()), static_cast<std::string>(r.node.asTerm().valueStr()));
-            }        
+                client.handleModuleChange(static_cast<std::string>(r.node.path()), static_cast<std::string>(r.node.asTerm().valueStr()));
+            }
         }
         return sysrepo::ErrorCode::Ok;
     };
     _subscription = _session.onModuleChange(moduleNameCom.c_str(), moduleChangeCb, path.c_str(), 0, sysrepo::SubscribeOptions::DoneOnly);
 }
-bool NetConfAgent::registerOperData(std::string &path, std::string value)
+bool NetConfAgent::registerOperData(std::string path, MobileClient &client)
 {
-    std::optional<libyang::DataNode> toSet;
-    sysrepo::ErrorCode retCode;
-    sysrepo::OperGetItemsCb operGetCb = [&](sysrepo::Session, auto, auto, auto, auto, auto, std::optional<libyang::DataNode> &parent)
+    sysrepo::OperGetItemsCb operGetCb = [path,&client](sysrepo::Session sess, auto, auto, auto, auto, auto, std::optional<libyang::DataNode> &parent)
     {
-        parent = toSet;
+        parent = sess.getContext().newPath(path.c_str(),client.getName().c_str());
         std::cout << "call back in operData is called\n";
 
-        return retCode;
+        return sysrepo::ErrorCode::Ok;
     };
-    //_session.switchDatastore(sysrepo::Datastore::Operational);
-    toSet =_session.getContext().newPath(path.c_str(), value.c_str());
-    _subscription = _session.onOperGetItems("commutator", operGetCb, path.c_str());
-   // _session.switchDatastore(sysrepo::Datastore::Running);
-   // _session.setItem(path.c_str(),value.c_str());
+    _operSub = _session.onOperGetItems(moduleNameCom.c_str(), operGetCb, path.c_str());
     std::cout << " metod is called \n";
     return true;
 }
