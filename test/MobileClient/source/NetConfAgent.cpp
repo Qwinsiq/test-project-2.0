@@ -4,6 +4,7 @@
 #include <string>
 #include <atomic>
 #include "MobileClient.hpp"
+namespace comutator{ 
 NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart())
 {
 
@@ -42,7 +43,7 @@ void NetConfAgent::changeData(const std::string path, std::string value)
     _session.setItem(s, r);
     _session.applyChanges();
 }
-void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient &client)
+bool NetConfAgent::subscribeForModelChanges(std::string modelName,std::string path, MobileClient &client)
 {
     sysrepo::ModuleChangeCb moduleChangeCb = [&](sysrepo::Session session, auto, auto, auto, auto, auto) -> sysrepo::ErrorCode
     {
@@ -56,18 +57,21 @@ void NetConfAgent::subscribeForModelChanges(std::string path, MobileClient &clie
         }
         return sysrepo::ErrorCode::Ok;
     };
-    _subscription = _session.onModuleChange(moduleNameCom.c_str(), moduleChangeCb, path.c_str(), 0, sysrepo::SubscribeOptions::DoneOnly);
+    _subscription = _session.onModuleChange(modelName.c_str(), moduleChangeCb, path.c_str(), 0, sysrepo::SubscribeOptions::DoneOnly);
+    if(_subscription!=std::nullopt)
+    return true;
+    else return false;
 }
-bool NetConfAgent::registerOperData(std::string path, MobileClient &client)
+bool NetConfAgent::registerOperData(std::string modelName,std::string path, MobileClient &client)
 {
     sysrepo::OperGetItemsCb operGetCb = [path,&client](sysrepo::Session sess, auto, auto, auto, auto, auto, std::optional<libyang::DataNode> &parent)
     {
         parent = sess.getContext().newPath(path.c_str(),client.getName().c_str());
-        std::cout << "call back in operData is called\n";
-
         return sysrepo::ErrorCode::Ok;
     };
-    _operSub = _session.onOperGetItems(moduleNameCom.c_str(), operGetCb, path.c_str());
-    std::cout << " metod is called \n";
+    _operSub = _session.onOperGetItems(modelName.c_str(), operGetCb, path.c_str());
+    if(_operSub!=std::nullopt)
     return true;
+    else return false;
+}
 }
