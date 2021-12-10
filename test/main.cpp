@@ -15,7 +15,7 @@ int main()
 {
     std::string str, command;
     bool cicle=true;
-         MobileClient m;
+         comutator::MobileClient m;
          while (cicle)
     {
 

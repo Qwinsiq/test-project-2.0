@@ -1,6 +1,8 @@
 #include "MobileClient.hpp"
 #include <iostream>
+#include "constants.hpp"
 
+namespace comutator{ 
 MobileClient::MobileClient()
 {
     _netConfAgent = std::make_unique<NetConfAgent>();
@@ -29,8 +31,8 @@ bool MobileClient::Register(std::string number)
     else
     {
         _netConfAgent->changeData(makePath(_number, numberPath), _number);
-        _netConfAgent->subscribeForModelChanges(makePath(_number, subscriberPath), *this);
-        _netConfAgent->registerOperData(makePath(_number, userNamePath), *this);
+        _netConfAgent->subscribeForModelChanges(moduleNameCom, makePath(_number, subscriberPath), *this);
+        _netConfAgent->registerOperData(moduleNameCom,makePath(_number, userNamePath), *this);
 
         return true;
     }
@@ -169,4 +171,5 @@ bool MobileClient::unregister()
         std::cout << " abonent cant't be deleted, he has active call\n";
         return false;
     }
+}
 }
