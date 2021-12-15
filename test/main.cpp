@@ -22,7 +22,7 @@ int main()
         getline(std::cin,str);
             if(str.find(' ')==std::string::npos)
         {
-            if (str == "unregister")
+            if (str == "unregister") 
                 m.unregister();
             else if (str == "callEnd")
                 m.callEnd();

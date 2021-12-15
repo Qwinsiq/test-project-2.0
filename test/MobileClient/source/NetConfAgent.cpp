@@ -9,7 +9,7 @@ NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart(
 {
 
 }
-bool NetConfAgent::fetchData(std::string path, std::string &str)
+bool NetConfAgent::fetchData(std::string path, std::string &str) 
 {
     auto data = _session.getData(path.c_str());
     if (data != std::nullopt)

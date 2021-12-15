@@ -1,4 +1,4 @@
-Build started at 2021-12-02T23:00:20.623638
+Build started at 2021-12-14T14:20:53.411624
 Main binary: /usr/bin/python3
 Build Options: 
 Python system: Linux
@@ -74,8 +74,8 @@ Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
 -lsysrepo-cpp
 None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpxud_8y8l
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpxud_8y8l/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpxud_8y8l/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpb9__w107
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpb9__w107/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpb9__w107/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
 
 Code:
  #include<stdio.h>
@@ -96,8 +96,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp78xhx_3x
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp78xhx_3x/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp78xhx_3x/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpsrwzt1hf
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpsrwzt1hf/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpsrwzt1hf/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
 
 Code:
  
@@ -125,7 +125,50 @@ Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
 -lyang-cpp
 None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
 Run-time dependency libyang-cpp found: YES alpha
-Build targets in project: 2
+Pkg-config binary for MachineChoice.HOST is cached.
+Determining dependency 'gtest_main' with pkg-config executable '/usr/bin/pkg-config'
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --modversion gtest_main` -> 0
+1.11.0
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --cflags gtest_main` -> 0
+-DGTEST_HAS_PTHREAD=1 -I/usr/local/include
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config gtest_main --libs` -> 0
+-L/usr/local/lib -lgtest_main -lpthread -lgtest -lpthread
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config gtest_main --libs` -> 0
+-L/usr/local/lib -lgtest_main -lpthread -lgtest -lpthread
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Running compile:
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpi6_lyvvh
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpi6_lyvvh/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpi6_lyvvh/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive -Wl,--start-group -lpthread -Wl,--end-group -Wl,--allow-shlib-undefined 
+
+Code:
+ int main(void) { return 0; }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Run-time dependency GTest found: YES 1.11.0
+Pkg-config binary for MachineChoice.HOST is cached.
+Determining dependency 'gmock_main' with pkg-config executable '/usr/bin/pkg-config'
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --modversion gmock_main` -> 0
+1.11.0
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config --cflags gmock_main` -> 0
+-DGTEST_HAS_PTHREAD=1 -I/usr/local/include
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config gmock_main --libs` -> 0
+-L/usr/local/lib -lgmock_main -lpthread -lgmock -lpthread -lgtest -lpthread
+PKG_CONFIG_PATH: 
+Called `/usr/bin/pkg-config gmock_main --libs` -> 0
+-L/usr/local/lib -lgmock_main -lpthread -lgmock -lpthread -lgtest -lpthread
+None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Run-time dependency GMock found: YES 1.11.0
+Adding test "test1"
+Build targets in project: 3
 
 Found ninja-1.8.2 at /usr/bin/ninja
 None of 'STRIP' are defined in the environment, not changing global flags.

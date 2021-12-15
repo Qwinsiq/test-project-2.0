@@ -42,21 +42,28 @@ build PHONY: phony
 
 build MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o: cpp_COMPILER ../MobileClient/./source/NetConfAgent.cpp
  DEPFILE = MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o.d
- ARGS = -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC
+ ARGS = -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC
 
 build MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o: cpp_COMPILER ../MobileClient/./source/MobileClient.cpp
  DEPFILE = MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o.d
- ARGS = -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC
+ ARGS = -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC
 
 build MobileClient/libstc.a: STATIC_LINKER MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o
  LINK_ARGS = csrD
 
 build main_exe@exe/main.cpp.o: cpp_COMPILER ../main.cpp
  DEPFILE = main_exe@exe/main.cpp.o.d
- ARGS = -Imain_exe@exe -I. -I.. -I../MobileClient/include -I../MobileClient/source -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g
+ ARGS = -Imain_exe@exe -I. -I.. -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g
 
 build main_exe: cpp_LINKER main_exe@exe/main.cpp.o | /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so MobileClient/libstc.a
  LINK_ARGS = -Wl,--as-needed -Wl,--no-undefined -Wl,--start-group MobileClient/libstc.a /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so -Wl,--end-group '-Wl,-rpath,$$ORIGIN/MobileClient' -Wl,-rpath-link,/home/qwinsiq/Desktop/test_project/test/bin/MobileClient
+
+build Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o: cpp_COMPILER ../Test/./source/MobileClientTest.cpp
+ DEPFILE = Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o.d
+ ARGS = -ITest/532eaab@@test1@exe -ITest -I../Test -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -I../Test/Mock -I/usr/local/include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -DGTEST_HAS_PTHREAD=1
+
+build Test/test1: cpp_LINKER Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o | /usr/lib/x86_64-linux-gnu/libpthread.a /usr/lib/x86_64-linux-gnu/libpthread.so /usr/local/lib/libgtest_main.a /usr/local/lib/libgtest.a /usr/local/lib/libgmock_main.a /usr/local/lib/libgmock.a /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so MobileClient/libstc.a
+ LINK_ARGS = -Wl,--as-needed -Wl,--no-undefined -Wl,--start-group MobileClient/libstc.a /usr/local/lib/libgtest_main.a -lpthread /usr/local/lib/libgtest.a /usr/local/lib/libgmock_main.a /usr/local/lib/libgmock.a /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libsysrepo-cpp.so /usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/libyang-cpp.so -Wl,--end-group '-Wl,-rpath,$$ORIGIN/../MobileClient' -Wl,-rpath-link,/home/qwinsiq/Desktop/test_project/test/bin/MobileClient
 
 # Test rules
 
@@ -98,7 +105,7 @@ build meson-uninstall: CUSTOM_COMMAND PHONY
 
 build uninstall: phony meson-uninstall
 
-build all: phony MobileClient/libstc.a main_exe
+build all: phony MobileClient/libstc.a main_exe Test/test1
 
 build clean: phony meson-clean
 
@@ -106,13 +113,13 @@ build meson-clean: CUSTOM_COMMAND PHONY
  COMMAND = /usr/bin/ninja -t clean
  description = Cleaning
 
-build build.ninja: REGENERATE_BUILD ../meson.build ../MobileClient/meson.build meson-private/coredata.dat
+build build.ninja: REGENERATE_BUILD ../meson.build ../MobileClient/meson.build ../Test/meson.build meson-private/coredata.dat
  pool = console
 
 build reconfigure: REGENERATE_BUILD PHONY
  pool = console
 
-build ../meson.build ../MobileClient/meson.build meson-private/coredata.dat: phony 
+build ../meson.build ../MobileClient/meson.build ../Test/meson.build meson-private/coredata.dat: phony 
 
 default all
 

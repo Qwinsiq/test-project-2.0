@@ -3,20 +3,26 @@
 #include "constants.hpp"
 
 namespace comutator{ 
-MobileClient::MobileClient()
-{
-    _netConfAgent = std::make_unique<NetConfAgent>();
-}
+MobileClient::MobileClient():
+    MobileClient(std::make_unique<NetConfAgent>())
+{}
+
+MobileClient::MobileClient(std::unique_ptr<INetConfAgent> NetConf) :
+    _netConfAgent{std::move(NetConf)}
+{}
+
 const std::string MobileClient::makePath(std::string number, const std::string path)
 {
     std::string str = path;
     str.replace(str.find("key"), 3, number);
     return str;
 }
+
 void MobileClient::setName(std::string name)
 {
     _name = name;
 }
+
 bool MobileClient::Register(std::string number)
 {
 
@@ -37,6 +43,7 @@ bool MobileClient::Register(std::string number)
         return true;
     }
 }
+
 bool MobileClient::call(std::string number)
 {
     std::string tempStr;
@@ -67,10 +74,12 @@ bool MobileClient::call(std::string number)
         std::cout << "Caller is not exist\n";
     return false;
 }
+
 std::string MobileClient::getName()
 {
     return _name;
 }
+
 void MobileClient::handleModuleChange(std::string path, std::string value)
 {
     if (path == makePath(_number, statePath))

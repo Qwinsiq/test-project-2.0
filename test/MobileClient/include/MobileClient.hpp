@@ -20,6 +20,9 @@ enum class state
      @return true- abonent succesful created
              false-abonent hasn't been created
      */
+
+    MobileClient(std::unique_ptr<INetConfAgent> NetConf);
+
      bool Register(std::string number);
 
      /*
@@ -72,6 +75,7 @@ enum class state
      std::string getName();
 
      private:
+     
      const std::string makePath(std::string number, std::string leaf);
      
      std::string _name;
@@ -80,6 +84,6 @@ enum class state
      state _state;
      std::string _out;
     
-     std::unique_ptr<NetConfAgent> _netConfAgent;
+     std::unique_ptr<INetConfAgent> _netConfAgent;
  };
 }

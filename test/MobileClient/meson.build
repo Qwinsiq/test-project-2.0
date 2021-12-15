@@ -1,4 +1,4 @@
-inc=include_directories('./include', './source')
+inc=include_directories('./include', './source', './api')
 lib=dependency('sysrepo-cpp')
 lib1=dependency('libyang-cpp')
 stc=static_library('stc',sources:['./source/NetConfAgent.cpp','./source/MobileClient.cpp'],include_directories:[inc],dependencies:[lib,lib1])
