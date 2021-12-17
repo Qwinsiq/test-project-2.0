@@ -49,7 +49,7 @@ enum class state
      /*
      @brief answers thr incoming call
      */
-     void answer();
+     bool answer();
 
      /*
      @brief ends teh call

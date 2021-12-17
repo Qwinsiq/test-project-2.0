@@ -2,55 +2,146 @@
 #include "MobileClient.hpp"
 #include "NetConfAgentMock.hpp"
 
-using testing::Return;
+#include <string>
+
 using testing::_;
+using testing::AtLeast;
+using testing::DoAll;
+using testing::Return;
+using testing::SetArgReferee;
 using testing::StrictMock;
+
+namespace
+{
+    using std::string;
+    const string user1numberPath = "/commutator:subscribers/subscriber[number='123']/number";
+    const string user1incomingnumberPath = "/commutator:subscribers/subscriber[number='123']/incomingNumber";
+    const string user1statePath = "/commutator:subscribers/subscriber[number='123']/state";
+    const string user2numberPath = "/commutator:subscribers/subscriber[number='321']/number";
+    const string user2incomingnumberPath = "/commutator:subscribers/subscriber[number='321']/incomingNumber";
+    const string user2statePath = "/commutator:subscribers/subscriber[number='321']/state";
+    const string user1NamePath= "/commutator:subscribers/subscriber[number='321']/userName";
+    const string number1 = "123";
+    const string number2 = "321";
+    const string active = "active";
+    const string idle = "idle";
+    const string busy = "busy";
+
+}
 namespace test
 {
-class MobileClientTest:public testing::Test
-{
-    protected:
-    void SetUp() override
+    class MobileClientTest : public testing::Test
     {
-        auto tempMock= std::make_unique<StrictMock<NetConfAgentMock>>();
-        _mock=tempMock.get();
-        _client=std::make_unique<comutator::MobileClient>(std::move(tempMock));
+    protected:
+        void SetUp() override
+        {
+            auto tempMock = std::make_unique<StrictMock<NetConfAgentMock>>();
+            _mock = tempMock.get();
+            _client = std::make_unique<comutator::MobileClient>(std::move(tempMock));
+        }
+        void registUser1()
+
+        {
+            EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
+                .WillOnce(Return(false));
+            EXPECT_CALL(*_mock, changeData(user1numberPath, number1))
+                .Times(1);
+            EXPECT_CALL(*_mock, subscribeForModelChanges)
+                .WillOnce(Return(true));
+            EXPECT_CALL(*_mock, registerOperData)
+                .WillOnce(Return(true));
+            EXPECT_TRUE(_client->Register(number1));
+        }
+
+        StrictMock<NetConfAgentMock> *_mock;
+        std::unique_ptr<comutator::MobileClient> _client;
+    };
+    TEST_F(MobileClientTest, TestSetName)
+    {
+        _client->setName("Alex");
+        std::string str = "Alex";
+        EXPECT_EQ(_client->getName(), str);
     }
- StrictMock <NetConfAgentMock>* _mock;
- std::unique_ptr<comutator::MobileClient> _client;
- 
-};
-TEST_F(MobileClientTest, TestSetName)
-{
-    _client->setName("Alex");
-    std::string str = "Alex";
-    EXPECT_EQ(_client->getName(), str);
-}
-TEST_F(MobileClientTest, TestRegisterReturnFalse)
-{
-    std::string path="/commutator:subscribers/subscriber[number='1234']/number";
-    EXPECT_CALL(*_mock,fetchData(path,_)).WillOnce(Return (true));
-    EXPECT_FALSE(_client->Register("1234"));
-}
-TEST_F(MobileClientTest, TestRegisterReturnTrue)
-{
-    EXPECT_CALL(*_mock, fetchData).WillOnce(Return (false));
-    EXPECT_CALL(*_mock,changeData).Times(1);
-    EXPECT_CALL(*_mock, subscribeForModelChanges).WillOnce(Return (true));
-    EXPECT_CALL(*_mock, registerOperData).WillOnce(Return (true));
-    EXPECT_TRUE(_client->Register("1234"));
-}
-TEST_F(MobileClientTest, TestCallTrue)
-{
-    EXPECT_CALL(*_mock, fetchData(_,_)).WillRepeatedly(Return (true));
-    EXPECT_CALL(*_mock, changeData).Times(3);
-    EXPECT_TRUE(_client->call("4321"));
-}
-TEST_F(MobileClientTest, TestCallFalse)
-{
-    EXPECT_CALL(*_mock, fetchData(_,_)).Times(3).WillOnce(Return(false)).WillRepeatedly(Return (true));
-    EXPECT_CALL(*_mock,changeData).Times(3);
-    EXPECT_FALSE(_client->call("4321"));
-}
+    TEST_F(MobileClientTest, TestRegisterReturnFalse)
+    {
+        EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number1), Return(true)));
+        EXPECT_FALSE(_client->Register(number1));
+    }
+    TEST_F(MobileClientTest, TestRegisterReturnTrue)
+    {
+        registUser1();
+    }
+    TEST_F(MobileClientTest, TestCallTrue)
+    {
+        registUser1();
+        EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number1), Return(true)));
+        EXPECT_CALL(*_mock, fetchData(user2numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number2), Return(true)));
+        EXPECT_CALL(*_mock, fetchData(user2statePath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(idle), Return(true)));
+        EXPECT_CALL(*_mock, changeData(user1statePath, active));
+        EXPECT_CALL(*_mock, changeData(user2statePath, active));
+        EXPECT_CALL(*_mock, changeData(user2incomingnumberPath, number1));
+        EXPECT_TRUE(_client->call(number2));
+    }
+    TEST_F(MobileClientTest, TestCallFalse1)
+    {
+        registUser1();
+        EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number1), Return(true)));
+        EXPECT_CALL(*_mock, fetchData(user2numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number2), Return(true)));
+        EXPECT_CALL(*_mock, fetchData(user2statePath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(idle), Return(false)));
+            
+            EXPECT_FALSE(_client->call(number2));
+    }
+    TEST_F(MobileClientTest, TestCallFalse2)
+    {
+        registUser1();
+        EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number1), Return(true)));
+        EXPECT_CALL(*_mock, fetchData(user2numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number2), Return(false)));
+            
+            EXPECT_FALSE(_client->call(number2));
+    }
+
+      TEST_F(MobileClientTest, TestCallFalse3)
+    {
+        registUser1();
+        EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
+            .WillOnce(DoAll(SetArgReferee<1>(number1), Return(false)));
+            
+            EXPECT_FALSE(_client->call(number2));
+    }
+
+        TEST_F(MobileClientTest, TestAnswerTrue)
+
+        {
+            registUser1();
+
+            _client->handleModuleChange(user1statePath, active);
+
+            EXPECT_CALL(*_mock, fetchData(user1NamePath,_))
+                    .WillOnce(DoAll(SetArgReferee<1>("Kate"), Return (true)));
+            _client->handleModuleChange(user1incomingnumberPath, number2);
+
+            EXPECT_CALL(*_mock, changeData(user1statePath, busy));
+            EXPECT_CALL(*_mock, changeData(user2statePath, busy));
+            EXPECT_TRUE(_client->answer());
+        } 
+        TEST_F(MobileClientTest, TestAnswerFalse)
+
+        {
+            registUser1();
+
+            _client->handleModuleChange(user1statePath, idle);
+
+            EXPECT_FALSE(_client->answer());
+        } 
+
 
 }
