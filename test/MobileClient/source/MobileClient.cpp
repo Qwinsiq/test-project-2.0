@@ -126,7 +126,7 @@ namespace comutator
         else
             return false;
     }
-    void MobileClient::callEnd()
+    bool MobileClient::callEnd()
     {
         if (_out.empty())
         {
@@ -135,9 +135,10 @@ namespace comutator
                 _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
+                return true;
             }
         }
-        else
+        else if(!_out.empty())
         {
             if (_state == state::busy)
 
@@ -145,10 +146,12 @@ namespace comutator
                 _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_out, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
+                return true;
             }
         }
+        else return false;
     }
-    void MobileClient::reject()
+    bool MobileClient::reject()
     {
 
         if (_state == state::active && _out.empty())
@@ -156,7 +159,9 @@ namespace comutator
             _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
             _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
             _netConfAgent->changeData(makePath(_number, statePath), "idle");
+            return true;
         }
+        else return false;
     }
     bool MobileClient::unregister()
     {
