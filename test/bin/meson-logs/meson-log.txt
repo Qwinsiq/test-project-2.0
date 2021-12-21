@@ -1,6 +1,6 @@
-Build started at 2021-12-14T14:20:53.411624
+Build started at 2021-12-21T16:06:38.394515
 Main binary: /usr/bin/python3
-Build Options: 
+Build Options: -Db_coverage=true -Dbackend=ninja
 Python system: Linux
 The Meson build system
 Version: 0.54.2
@@ -11,39 +11,9 @@ None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global fl
 None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
 Project name: test
 Project version: undefined
-None of 'CXX' are defined in the environment, not changing global flags.
-None of 'CXXFLAGS' are defined in the environment, not changing global flags.
-None of 'LDFLAGS' are defined in the environment, not changing global flags.
-None of 'CPPFLAGS' are defined in the environment, not changing global flags.
-None of 'CXX_LD' are defined in the environment, not changing global flags.
-Sanity testing C++ compiler: c++
-Is cross compiler: False.
-Sanity check compiler command line: c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.cc -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
-Sanity check compile stdout:
-
------
-Sanity check compile stderr:
-
------
-Running test binary command: /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe
 C++ compiler for the build machine: c++ (gcc 10.3.0 "c++ (Ubuntu 10.3.0-1ubuntu1~18.04~1) 10.3.0")
 C++ linker for the build machine: c++ ld.bfd 2.30
 None of 'AR' are defined in the environment, not changing global flags.
-None of 'CXX' are defined in the environment, not changing global flags.
-None of 'CXXFLAGS' are defined in the environment, not changing global flags.
-None of 'LDFLAGS' are defined in the environment, not changing global flags.
-None of 'CPPFLAGS' are defined in the environment, not changing global flags.
-None of 'CXX_LD' are defined in the environment, not changing global flags.
-Sanity testing C++ compiler: c++
-Is cross compiler: False.
-Sanity check compiler command line: c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.cc -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
-Sanity check compile stdout:
-
------
-Sanity check compile stderr:
-
------
-Running test binary command: /home/qwinsiq/Desktop/test_project/test/bin/meson-private/sanitycheckcpp.exe
 C++ compiler for the host machine: c++ (gcc 10.3.0 "c++ (Ubuntu 10.3.0-1ubuntu1~18.04~1) 10.3.0")
 C++ linker for the host machine: c++ ld.bfd 2.30
 None of 'AR' are defined in the environment, not changing global flags.
@@ -53,51 +23,14 @@ Host machine cpu family: x86_64
 Host machine cpu: x86_64
 Target machine cpu family: x86_64
 Target machine cpu: x86_64
-Pkg-config binary for MachineChoice.HOST is not cached.
-None of 'PKG_CONFIG' are defined in the environment, not changing global flags.
-Pkg-config binary missing from cross or native file, or env var undefined.
-Trying a default Pkg-config fallback at pkg-config
-Trying pkg-config binary pkg-config for machine MachineChoice.HOST at ['/usr/bin/pkg-config']
-Found pkg-config: /usr/bin/pkg-config (0.29.1)
-Determining dependency 'sysrepo-cpp' with pkg-config executable '/usr/bin/pkg-config'
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --modversion sysrepo-cpp` -> 0
-alpha
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --cflags sysrepo-cpp` -> 0
+Dependency sysrepo-cpp found: YES alpha (cached)
+Dependency libyang-cpp found: YES alpha (cached)
+Build targets in project: 2
 
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
--L/usr/lib/x86_64-linux-gnu -lsysrepo-cpp
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config sysrepo-cpp --libs` -> 0
--lsysrepo-cpp
-None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
+Found ninja-1.8.2 at /usr/bin/ninja
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpb9__w107
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpb9__w107/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpb9__w107/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive 
-
-Code:
- #include<stdio.h>
-        
-        int main(void) {
-            printf("%ld\n", (long)(sizeof(void *)));
-            return 0;
-        };
-Compiler stdout:
- 
-Compiler stderr:
- 
-Program stdout:
-
-8
-
-Program stderr:
-
-
-Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpsrwzt1hf
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpsrwzt1hf/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpsrwzt1hf/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp0uvkif57
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp0uvkif57/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp0uvkif57/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
 
 Code:
  
@@ -108,68 +41,5 @@ libraries: =/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/.
 
 Compiler stderr:
  
-Run-time dependency sysrepo-cpp found: YES alpha
-Pkg-config binary for MachineChoice.HOST is cached.
-Determining dependency 'libyang-cpp' with pkg-config executable '/usr/bin/pkg-config'
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --modversion libyang-cpp` -> 0
-alpha
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --cflags libyang-cpp` -> 0
-
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
--L/usr/lib/x86_64-linux-gnu -lyang-cpp
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config libyang-cpp --libs` -> 0
--lyang-cpp
-None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
-Run-time dependency libyang-cpp found: YES alpha
-Pkg-config binary for MachineChoice.HOST is cached.
-Determining dependency 'gtest_main' with pkg-config executable '/usr/bin/pkg-config'
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --modversion gtest_main` -> 0
-1.11.0
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --cflags gtest_main` -> 0
--DGTEST_HAS_PTHREAD=1 -I/usr/local/include
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config gtest_main --libs` -> 0
--L/usr/local/lib -lgtest_main -lpthread -lgtest -lpthread
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config gtest_main --libs` -> 0
--L/usr/local/lib -lgtest_main -lpthread -lgtest -lpthread
-None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
-Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpi6_lyvvh
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpi6_lyvvh/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpi6_lyvvh/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -fpermissive -Wl,--start-group -lpthread -Wl,--end-group -Wl,--allow-shlib-undefined 
-
-Code:
- int main(void) { return 0; }
-Compiler stdout:
- 
-Compiler stderr:
- 
-Run-time dependency GTest found: YES 1.11.0
-Pkg-config binary for MachineChoice.HOST is cached.
-Determining dependency 'gmock_main' with pkg-config executable '/usr/bin/pkg-config'
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --modversion gmock_main` -> 0
-1.11.0
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config --cflags gmock_main` -> 0
--DGTEST_HAS_PTHREAD=1 -I/usr/local/include
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config gmock_main --libs` -> 0
--L/usr/local/lib -lgmock_main -lpthread -lgmock -lpthread -lgtest -lpthread
-PKG_CONFIG_PATH: 
-Called `/usr/bin/pkg-config gmock_main --libs` -> 0
--L/usr/local/lib -lgmock_main -lpthread -lgmock -lpthread -lgtest -lpthread
-None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
-Run-time dependency GMock found: YES 1.11.0
-Adding test "test1"
-Build targets in project: 3
-
-Found ninja-1.8.2 at /usr/bin/ninja
 None of 'STRIP' are defined in the environment, not changing global flags.
 None of 'STRIP' are defined in the environment, not changing global flags.

@@ -1,6 +1,7 @@
 #pragma once
 #include "NetConfAgent.hpp"
 #include <string>
+#include <ctime>
 
 namespace comutator{ 
 enum class state
@@ -74,6 +75,8 @@ enum class state
      */
      std::string getName();
 
+       ~MobileClient();
+
      private:
      
      const std::string makePath(std::string number, std::string leaf);
@@ -83,7 +86,7 @@ enum class state
      std::string _incomingNumber;
      state _state;
      std::string _out;
-    
+     std::time_t _startTime;
      std::unique_ptr<INetConfAgent> _netConfAgent;
  };
 }

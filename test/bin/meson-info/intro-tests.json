@@ -1,1 +1,1 @@
-[{"cmd": ["/home/qwinsiq/Desktop/test_project/test/bin/Test/test1"], "env": {}, "name": "test1", "workdir": null, "timeout": 30, "suite": ["test"], "is_parallel": true, "priority": 0, "protocol": "exitcode"}]
+[]

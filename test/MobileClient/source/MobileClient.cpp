@@ -88,6 +88,7 @@ namespace comutator
             if (value == "busy")
             {
                 _state = state::busy;
+                std::time(&_startTime);
                 std::cout << ">> The call is in progress " << std::endl;
             }
 
@@ -121,6 +122,11 @@ namespace comutator
         {
             _netConfAgent->changeData(makePath(_number, statePath), "busy");
             _netConfAgent->changeData(makePath(_incomingNumber, statePath), "busy");
+            std::map<std::string, std::string> mp;
+            mp["startTime"] = std::to_string(_startTime);
+            mp["abonentA"] = _number;
+            mp["abonentB"] = _incomingNumber;
+            _netConfAgent->notifySysrepo(mp);
             return true;
         }
         else
@@ -131,25 +137,43 @@ namespace comutator
         if (_out.empty())
         {
             if (_state == state::busy)
-            {
+            { 
+                std::map<std::string, std::string> mp;
+                mp["startTime"] = std::ctime(&_startTime);
+                mp["abonentA"] = _number;
+                mp["abonentB"] = _incomingNumber;
+                std::time_t endT;
+                std::time(&endT);
+                mp["duration"]=std::to_string((int)(std::difftime(endT,_startTime))/60);
+                _netConfAgent->notifySysrepo(mp);
                 _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
+               
                 return true;
             }
         }
-        else if(!_out.empty())
+        else if (!_out.empty())
         {
             if (_state == state::busy)
 
             {
+                std::map<std::string, std::string> mp;
+                mp["startTime"] = std::to_string(_startTime);
+                mp["abonentA"] = _number;
+                mp["abonentB"] = _out;
+                std::time_t endT;
+                std::time(&endT);
+                mp["duration"]=std::to_string((int)(std::difftime(endT,_startTime))/60);
+                _netConfAgent->notifySysrepo(mp);
                 _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_out, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
+                
                 return true;
             }
         }
-        else return false;
+        return false;
     }
     bool MobileClient::reject()
     {
@@ -161,7 +185,8 @@ namespace comutator
             _netConfAgent->changeData(makePath(_number, statePath), "idle");
             return true;
         }
-        else return false;
+        else
+            return false;
     }
     bool MobileClient::unregister()
     {
@@ -175,6 +200,43 @@ namespace comutator
         {
             std::cout << " abonent cant't be deleted, he has active call\n";
             return false;
+        }
+    }
+    MobileClient::~MobileClient()
+    {
+        if (!_number.empty())
+        {
+            if (_incomingNumber.empty() && _out.empty())
+            {
+                _netConfAgent->deleteData(makePath(_number, subscriberPath));
+            }
+            else
+            {
+                if (!_out.empty())
+                {
+                    if (_state == state::busy)
+                    {
+                        callEnd();
+                    }
+                    if (_state == state::active)
+                    {
+                        _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
+                        _netConfAgent->changeData(makePath(_out, statePath), "idle");
+                    }
+                }
+                else if (!_incomingNumber.empty())
+                {
+                    if (_state == state::busy)
+                    {
+                        callEnd();
+                    }
+                    if (_state == state::active)
+                    {
+                        reject();
+                    }
+                }
+                _netConfAgent->deleteData(makePath(_number, subscriberPath));
+            }
         }
     }
 }

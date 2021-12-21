@@ -1,22 +1,17 @@
 [
   {
     "directory": "/home/qwinsiq/Desktop/test_project/test/bin",
-    "command": "c++ -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC -MD -MQ 'MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o' -MF 'MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o.d' -o 'MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o' -c ../MobileClient/source/NetConfAgent.cpp",
+    "command": "c++ -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always --coverage -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC -MD -MQ 'MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o' -MF 'MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o.d' -o 'MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o' -c ../MobileClient/source/NetConfAgent.cpp",
     "file": "../MobileClient/source/NetConfAgent.cpp"
   },
   {
     "directory": "/home/qwinsiq/Desktop/test_project/test/bin",
-    "command": "c++ -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC -MD -MQ 'MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o' -MF 'MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o.d' -o 'MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o' -c ../MobileClient/source/MobileClient.cpp",
+    "command": "c++ -IMobileClient/eaac78d@@stc@sta -IMobileClient -I../MobileClient -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always --coverage -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -fPIC -MD -MQ 'MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o' -MF 'MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o.d' -o 'MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o' -c ../MobileClient/source/MobileClient.cpp",
     "file": "../MobileClient/source/MobileClient.cpp"
   },
   {
     "directory": "/home/qwinsiq/Desktop/test_project/test/bin",
-    "command": "c++ -Imain_exe@exe -I. -I.. -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -MD -MQ 'main_exe@exe/main.cpp.o' -MF 'main_exe@exe/main.cpp.o.d' -o 'main_exe@exe/main.cpp.o' -c ../main.cpp",
+    "command": "c++ -Imain_exe@exe -I. -I.. -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -fdiagnostics-color=always --coverage -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -MD -MQ 'main_exe@exe/main.cpp.o' -MF 'main_exe@exe/main.cpp.o.d' -o 'main_exe@exe/main.cpp.o' -c ../main.cpp",
     "file": "../main.cpp"
-  },
-  {
-    "directory": "/home/qwinsiq/Desktop/test_project/test/bin",
-    "command": "c++ -ITest/532eaab@@test1@exe -ITest -I../Test -I../MobileClient/include -I../MobileClient/source -I../MobileClient/api -I../Test/Mock -I/usr/local/include -fdiagnostics-color=always -pipe -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wnon-virtual-dtor -std=c++2a -g -DGTEST_HAS_PTHREAD=1 -MD -MQ 'Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o' -MF 'Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o.d' -o 'Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o' -c ../Test/source/MobileClientTest.cpp",
-    "file": "../Test/source/MobileClientTest.cpp"
   }
 ]

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!DOCTYPE coverage
+  SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'>
+<coverage branch-rate="0.0" branches-covered="0" branches-valid="0" complexity="0.0" line-rate="0.0" lines-covered="0" lines-valid="0" timestamp="1640015687" version="gcovr 3.4">
+<sources>
+<source>/home/qwinsiq/Desktop/test_project/test/bin</source>
+</sources>
+<packages/>
+</coverage>
+

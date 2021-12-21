@@ -54,6 +54,8 @@ class NetConfAgent:public INetConfAgent
     */
     void deleteData(const std::string path) override;
 
+    bool notifySysrepo (std::map<std::string,std::string> mp) override;
+
    private:
     sysrepo::Connection  _connection;
     sysrepo::Session _session;

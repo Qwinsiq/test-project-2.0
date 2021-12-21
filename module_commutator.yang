@@ -11,5 +11,13 @@ prefix com;
 		leaf incomingNumber{type string;}
 		leaf state{type enumeration{enum idle; enum busy; enum active;} default idle;}
 	}
-}	
+}
+	notification statCall
+	{
+		leaf startTime{type string; mandatory true;}
+		leaf abonentA{type string; mandatory true;}
+		leaf abonentB{type string; mandatory true;}
+		leaf duration{type string;}
+	}
+	
 }

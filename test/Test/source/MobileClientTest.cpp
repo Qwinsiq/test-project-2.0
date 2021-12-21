@@ -21,6 +21,7 @@ namespace
     const string user2incomingnumberPath = "/commutator:subscribers/subscriber[number='321']/incomingNumber";
     const string user2statePath = "/commutator:subscribers/subscriber[number='321']/state";
     const string user1NamePath = "/commutator:subscribers/subscriber[number='321']/userName";
+    const string user1Path="/commutator:subscribers/subscriber[number='123']";
     const string number1 = "123";
     const string number2 = "321";
     const string active = "active";
@@ -80,12 +81,14 @@ namespace test
         EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
             .WillOnce(DoAll(SetArgReferee<1>(number1), Return(true)));
         EXPECT_FALSE(_client->Register(number1));
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
     TEST_F(MobileClientTest, TestRegisterReturnTrue)
     {
         registUser1();
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
-    TEST_F(MobileClientTest, TestCallTrue)
+     TEST_F(MobileClientTest, TestCallTrue)
     {
         registUser1();
         EXPECT_CALL(*_mock, fetchData(user1numberPath, _))
@@ -98,7 +101,11 @@ namespace test
         EXPECT_CALL(*_mock, changeData(user2statePath, active));
         EXPECT_CALL(*_mock, changeData(user2incomingnumberPath, number1));
         EXPECT_TRUE(_client->call(number2));
-    }
+
+        
+        _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    } 
     TEST_F(MobileClientTest, TestCallFalse1)
     {
         registUser1();
@@ -110,6 +117,8 @@ namespace test
             .WillOnce(DoAll(SetArgReferee<1>(idle), Return(false)));
 
         EXPECT_FALSE(_client->call(number2));
+
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
     TEST_F(MobileClientTest, TestCallFalse2)
     {
@@ -120,6 +129,7 @@ namespace test
             .WillOnce(DoAll(SetArgReferee<1>(number2), Return(false)));
 
         EXPECT_FALSE(_client->call(number2));
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
 
     TEST_F(MobileClientTest, TestCallFalse3)
@@ -129,9 +139,10 @@ namespace test
             .WillOnce(DoAll(SetArgReferee<1>(number1), Return(false)));
 
         EXPECT_FALSE(_client->call(number2));
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
 
-    TEST_F(MobileClientTest, TestAnswerTrue)
+     TEST_F(MobileClientTest, TestAnswerTrue)
 
     {
         registUser1();
@@ -145,7 +156,10 @@ namespace test
         EXPECT_CALL(*_mock, changeData(user1statePath, busy));
         EXPECT_CALL(*_mock, changeData(user2statePath, busy));
         EXPECT_TRUE(_client->answer());
-    }
+
+         _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    } 
     TEST_F(MobileClientTest, TestAnswerFalse)
 
     {
@@ -154,8 +168,9 @@ namespace test
         _client->handleModuleChange(user1statePath, idle);
 
         EXPECT_FALSE(_client->answer());
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
-    TEST_F(MobileClientTest, TestRejectTrue)
+     TEST_F(MobileClientTest, TestRejectTrue)
     {
         registUser1();
 
@@ -170,7 +185,10 @@ namespace test
         EXPECT_CALL(*_mock, changeData(user1statePath, idle));
 
         EXPECT_TRUE(_client->reject());
-    }
+
+        _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    } 
     TEST_F(MobileClientTest, TestRejectFalse)
 
     {
@@ -179,8 +197,9 @@ namespace test
         _client->handleModuleChange(user1statePath, busy);
 
         EXPECT_FALSE(_client->reject());
-    }
-    TEST_F(MobileClientTest, TestCallEndTrueOut)
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+   }
+     TEST_F(MobileClientTest, TestCallEndTrueOut)
 
     {
         registUser1();
@@ -191,6 +210,9 @@ namespace test
         EXPECT_CALL(*_mock, changeData(user2statePath, idle));
         EXPECT_CALL(*_mock, changeData(user1statePath, idle));
         EXPECT_TRUE(_client->callEnd());
+
+        _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
     }
     TEST_F(MobileClientTest, TestCallEndTrueIncoming)
 
@@ -208,20 +230,26 @@ namespace test
         EXPECT_TRUE(_client->answer());
 
         _client->handleModuleChange(user1statePath, busy);
-
         EXPECT_CALL(*_mock, deleteData(user1incomingnumberPath));
         EXPECT_CALL(*_mock, changeData(user2statePath, idle));
         EXPECT_CALL(*_mock, changeData(user1statePath, idle));
         EXPECT_TRUE(_client->callEnd());
-    }
-    TEST_F(MobileClientTest, TestCallEndFalseOut)
+
+        _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    } 
+     TEST_F(MobileClientTest, TestCallEndFalseOut)
 
     {
         registUser1();
         callUser2();
         _client->handleModuleChange(user1statePath, active);
         EXPECT_FALSE(_client->callEnd());
-    }
+
+
+        _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    } 
     TEST_F(MobileClientTest, TestCallEndFalseIncoming)
 
     {
@@ -239,6 +267,23 @@ namespace test
 
         _client->handleModuleChange(user1statePath, idle);
         EXPECT_FALSE(_client->callEnd());
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    }
+    TEST_F(MobileClientTest, TestUnregisterTrue)
+    {
+        registUser1();
+        _client->handleModuleChange(user1statePath, idle);
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+        EXPECT_TRUE(_client->unregister());
+        EXPECT_CALL(*_mock, deleteData(user1Path));
+    }
+    TEST_F(MobileClientTest, TestUnregisterFalse)
+    {
+        registUser1();
+        callUser2();
+        EXPECT_FALSE(_client->unregister());
+        
+        EXPECT_CALL(*_mock,deleteData(user1Path));
     }
 
 }
