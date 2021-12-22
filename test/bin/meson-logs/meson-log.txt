@@ -1,4 +1,4 @@
-Build started at 2021-12-21T16:06:38.394515
+Build started at 2021-12-22T11:19:25.219827
 Main binary: /usr/bin/python3
 Build Options: -Db_coverage=true -Dbackend=ninja
 Python system: Linux
@@ -25,12 +25,15 @@ Target machine cpu family: x86_64
 Target machine cpu: x86_64
 Dependency sysrepo-cpp found: YES alpha (cached)
 Dependency libyang-cpp found: YES alpha (cached)
-Build targets in project: 2
+Dependency gtest found: YES 1.11.0 (cached)
+Dependency gmock found: YES 1.11.0 (cached)
+Adding test "test1"
+Build targets in project: 3
 
 Found ninja-1.8.2 at /usr/bin/ninja
 Running compile:
-Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp0uvkif57
-Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp0uvkif57/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmp0uvkif57/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+Working directory:  /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpfsks36oy
+Command line:  c++ /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpfsks36oy/testfile.cpp -o /home/qwinsiq/Desktop/test_project/test/bin/meson-private/tmpfsks36oy/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
 
 Code:
  

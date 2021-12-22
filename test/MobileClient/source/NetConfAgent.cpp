@@ -76,7 +76,7 @@ namespace comutator
         else
             return false;
     }
-    bool NetConfAgent::notifySysrepo(std::map<std::string, std::string> mp)
+    void NetConfAgent::notifySysrepo(std::map<std::string, std::string> mp)
     {
         auto it = mp.begin();
         auto notification = _session.getContext().newPath("/commutator:statCall");
@@ -85,7 +85,6 @@ namespace comutator
             notification.newPath(it->first.c_str(), it->second.c_str());
         }
         _session.sendNotification(notification, sysrepo::Wait::Yes);
-        return true;
     }
 
 }

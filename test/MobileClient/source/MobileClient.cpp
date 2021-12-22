@@ -97,6 +97,7 @@ namespace comutator
                 _state = state::idle;
                 _out.erase();
                 _incomingNumber.erase();
+                _startTime=0;
                 std::cout << ">> The call is ended " << std::endl;
             }
             else if (value == "active")
@@ -137,19 +138,19 @@ namespace comutator
         if (_out.empty())
         {
             if (_state == state::busy)
-            { 
+            {
                 std::map<std::string, std::string> mp;
                 mp["startTime"] = std::ctime(&_startTime);
                 mp["abonentA"] = _number;
                 mp["abonentB"] = _incomingNumber;
                 std::time_t endT;
                 std::time(&endT);
-                mp["duration"]=std::to_string((int)(std::difftime(endT,_startTime))/60);
+                mp["duration"] = std::to_string((int)(std::difftime(endT, _startTime)) / 60);
                 _netConfAgent->notifySysrepo(mp);
                 _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
-               
+
                 return true;
             }
         }
@@ -164,12 +165,12 @@ namespace comutator
                 mp["abonentB"] = _out;
                 std::time_t endT;
                 std::time(&endT);
-                mp["duration"]=std::to_string((int)(std::difftime(endT,_startTime))/60);
+                mp["duration"] = std::to_string((int)(std::difftime(endT, _startTime)) / 60);
                 _netConfAgent->notifySysrepo(mp);
                 _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
                 _netConfAgent->changeData(makePath(_out, statePath), "idle");
                 _netConfAgent->changeData(makePath(_number, statePath), "idle");
-                
+
                 return true;
             }
         }

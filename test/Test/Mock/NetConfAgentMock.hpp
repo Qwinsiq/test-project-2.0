@@ -11,4 +11,5 @@ public:
     MOCK_METHOD(bool, registerOperData,(std::string modelName, std::string path, comutator::MobileClient &client), (override));
     MOCK_METHOD(void, changeData, (const std::string path, std::string value),(override));
     MOCK_METHOD(void, deleteData, (const std::string path), (override));
+    MOCK_METHOD(void, notifySysrepo, ((std::map<std::string,std::string>) mp), (override)); 
 };

@@ -14,3 +14,14 @@
 3	7339	1640096460	MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o	3ad19c2c1e8eaf44
 7339	7368	1640096460	MobileClient/libstc.a	6cab50618da1203c
 7368	7823	1640096461	main_exe	d431ce7f0bd1effb
+0	1291	1640164765	build.ninja	d900ea13a7c0914a
+5	10413	1640164776	main_exe@exe/main.cpp.o	90e3c35c16e075a5
+4	13251	1640164778	MobileClient/eaac78d@@stc@sta/source_MobileClient.cpp.o	3ad19c2c1e8eaf44
+2	13809	1640164779	MobileClient/eaac78d@@stc@sta/source_NetConfAgent.cpp.o	283046a0831e209b
+13809	13872	1640164779	MobileClient/libstc.a	6cab50618da1203c
+13872	14596	1640164780	main_exe	d431ce7f0bd1effb
+10413	33430	1640164799	Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o	cbbd3d4be33c5092
+33432	34975	1640164800	Test/test1	d6cfbabb2c403266
+4	20455	1640164852	Test/532eaab@@test1@exe/source_MobileClientTest.cpp.o	cbbd3d4be33c5092
+20456	22013	1640164853	Test/test1	d6cfbabb2c403266
+22013	22790	0	meson-test	a85f1c56d359de93

@@ -155,6 +155,7 @@ namespace test
 
         EXPECT_CALL(*_mock, changeData(user1statePath, busy));
         EXPECT_CALL(*_mock, changeData(user2statePath, busy));
+        EXPECT_CALL(*_mock, notifySysrepo);
         EXPECT_TRUE(_client->answer());
 
          _client->handleModuleChange(user1statePath, idle);
@@ -209,6 +210,7 @@ namespace test
         EXPECT_CALL(*_mock, deleteData(user2incomingnumberPath));
         EXPECT_CALL(*_mock, changeData(user2statePath, idle));
         EXPECT_CALL(*_mock, changeData(user1statePath, idle));
+        EXPECT_CALL(*_mock, notifySysrepo);
         EXPECT_TRUE(_client->callEnd());
 
         _client->handleModuleChange(user1statePath, idle);
@@ -227,12 +229,14 @@ namespace test
 
         EXPECT_CALL(*_mock, changeData(user1statePath, busy));
         EXPECT_CALL(*_mock, changeData(user2statePath, busy));
+        EXPECT_CALL(*_mock, notifySysrepo);
         EXPECT_TRUE(_client->answer());
 
         _client->handleModuleChange(user1statePath, busy);
         EXPECT_CALL(*_mock, deleteData(user1incomingnumberPath));
         EXPECT_CALL(*_mock, changeData(user2statePath, idle));
         EXPECT_CALL(*_mock, changeData(user1statePath, idle));
+        EXPECT_CALL(*_mock, notifySysrepo);
         EXPECT_TRUE(_client->callEnd());
 
         _client->handleModuleChange(user1statePath, idle);
@@ -263,6 +267,7 @@ namespace test
 
         EXPECT_CALL(*_mock, changeData(user1statePath, busy));
         EXPECT_CALL(*_mock, changeData(user2statePath, busy));
+        EXPECT_CALL(*_mock, notifySysrepo);
         EXPECT_TRUE(_client->answer());
 
         _client->handleModuleChange(user1statePath, idle);

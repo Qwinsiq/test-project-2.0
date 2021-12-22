@@ -52,7 +52,7 @@ namespace comutator
     @Brief default destructor
     */
 
-    virtual bool notifySysrepo (std::map<std::string,std::string> mp)=0;
+    virtual void notifySysrepo (std::map<std::string,std::string> mp)=0;
         virtual ~INetConfAgent()=default;
     };
 }
