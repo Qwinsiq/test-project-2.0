@@ -1,5 +1,6 @@
 #include "MobileClient.hpp"
 #include <iostream>
+#include <regex>
 #include "constants.hpp"
 
 namespace comutator
@@ -26,22 +27,31 @@ namespace comutator
 
     bool MobileClient::Register(std::string number)
     {
+        std::regex reg("^\\d{4,9}$");
+        std::smatch match;
 
-        _number = number;
-        std::string temp;
-        if (_netConfAgent->fetchData(makePath(number, numberPath), temp))
-
+        if (std::regex_match(number, match, reg))
         {
-            std::cout << " Client with this number already exists, try another number \n";
-            return false;
+            std::string temp;
+            if (_netConfAgent->fetchData(makePath(number, numberPath), temp))
+
+            {
+                std::cout << " Client with this number already exists, try another number \n";
+                return false;
+            }
+            else
+            {
+                _netConfAgent->changeData(makePath(_number, numberPath), _number);
+                _netConfAgent->subscribeForModelChanges(moduleNameCom, makePath(_number, subscriberPath), *this);
+                _netConfAgent->registerOperData(moduleNameCom, makePath(_number, userNamePath), *this);
+                _number = number;
+                return true;
+            }
         }
         else
         {
-            _netConfAgent->changeData(makePath(_number, numberPath), _number);
-            _netConfAgent->subscribeForModelChanges(moduleNameCom, makePath(_number, subscriberPath), *this);
-            _netConfAgent->registerOperData(moduleNameCom, makePath(_number, userNamePath), *this);
-
-            return true;
+            std::cout << "Number is uncorrect, write 4-9 digits \n";
+            return false;
         }
     }
 
@@ -68,176 +78,174 @@ namespace comutator
                 else
                     std::cout << "State of callNumber is not defined\n";
             }
-            else
-                std::cout << "CallNumber is not exist\n";
+             else
+            std::cout << "CallNumber is not exist\n";
         }
-        else
-            std::cout << "Caller is not exist\n";
+       return false;
+    }    
+
+std::string MobileClient::getName()
+{
+    return _name;
+}
+
+void MobileClient::handleModuleChange(std::string path, std::string value)
+{
+    if (path == makePath(_number, statePath))
+    {
+        if (value == "busy")
+        {
+            _state = state::busy;
+            std::time(&_startTime);
+            std::cout << ">> The call is in progress " << std::endl;
+        }
+
+        else if (value == "idle")
+        {
+            _state = state::idle;
+            _out.erase();
+            _incomingNumber.erase();
+            _startTime = 0;
+            std::cout << ">> The call is ended " << std::endl;
+        }
+        else if (value == "active")
+        {
+            _state = state::active;
+        }
+    }
+    else if (path == makePath(_number, incomingnumberPath))
+    {
+        if (_state == state::active)
+        {
+            _incomingNumber = value;
+            std::string str;
+            if (_netConfAgent->fetchData(makePath(value, userNamePath), str))
+                std::cout << ">> incoming call from " << value << " " << str << std::endl;
+        }
+    }
+}
+
+bool MobileClient::answer()
+{
+    if (_state == state::active && _out.empty())
+    {
+        _netConfAgent->changeData(makePath(_number, statePath), "busy");
+        _netConfAgent->changeData(makePath(_incomingNumber, statePath), "busy");
+        std::map<std::string, std::string> mp;
+        mp["startTime"] = std::to_string(_startTime);
+        mp["abonentA"] = _number;
+        mp["abonentB"] = _incomingNumber;
+        _netConfAgent->notifySysrepo(mp);
+        return true;
+    }
+    else
         return false;
-    }
-
-    std::string MobileClient::getName()
+}
+bool MobileClient::callEnd()
+{
+    if (_out.empty())
     {
-        return _name;
-    }
-
-    void MobileClient::handleModuleChange(std::string path, std::string value)
-    {
-        if (path == makePath(_number, statePath))
+        if (_state == state::busy)
         {
-            if (value == "busy")
-            {
-                _state = state::busy;
-                std::time(&_startTime);
-                std::cout << ">> The call is in progress " << std::endl;
-            }
-
-            else if (value == "idle")
-            {
-                _state = state::idle;
-                _out.erase();
-                _incomingNumber.erase();
-                _startTime=0;
-                std::cout << ">> The call is ended " << std::endl;
-            }
-            else if (value == "active")
-            {
-                _state = state::active;
-            }
-        }
-        else if (path == makePath(_number, incomingnumberPath))
-        {
-            if (_state == state::active)
-            {
-                _incomingNumber = value;
-                std::string str;
-                if (_netConfAgent->fetchData(makePath(value, userNamePath), str))
-                    std::cout << ">> incoming call from " << value << " " << str << std::endl;
-            }
-        }
-    }
-
-    bool MobileClient::answer()
-    {
-        if (_state == state::active && _out.empty())
-        {
-            _netConfAgent->changeData(makePath(_number, statePath), "busy");
-            _netConfAgent->changeData(makePath(_incomingNumber, statePath), "busy");
             std::map<std::string, std::string> mp;
-            mp["startTime"] = std::to_string(_startTime);
+            mp["startTime"] = std::ctime(&_startTime);
             mp["abonentA"] = _number;
             mp["abonentB"] = _incomingNumber;
+            std::time_t endT;
+            std::time(&endT);
+            mp["duration"] = std::to_string((int)(std::difftime(endT, _startTime)) / 60);
             _netConfAgent->notifySysrepo(mp);
-            return true;
-        }
-        else
-            return false;
-    }
-    bool MobileClient::callEnd()
-    {
-        if (_out.empty())
-        {
-            if (_state == state::busy)
-            {
-                std::map<std::string, std::string> mp;
-                mp["startTime"] = std::ctime(&_startTime);
-                mp["abonentA"] = _number;
-                mp["abonentB"] = _incomingNumber;
-                std::time_t endT;
-                std::time(&endT);
-                mp["duration"] = std::to_string((int)(std::difftime(endT, _startTime)) / 60);
-                _netConfAgent->notifySysrepo(mp);
-                _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
-                _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
-                _netConfAgent->changeData(makePath(_number, statePath), "idle");
-
-                return true;
-            }
-        }
-        else if (!_out.empty())
-        {
-            if (_state == state::busy)
-
-            {
-                std::map<std::string, std::string> mp;
-                mp["startTime"] = std::to_string(_startTime);
-                mp["abonentA"] = _number;
-                mp["abonentB"] = _out;
-                std::time_t endT;
-                std::time(&endT);
-                mp["duration"] = std::to_string((int)(std::difftime(endT, _startTime)) / 60);
-                _netConfAgent->notifySysrepo(mp);
-                _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
-                _netConfAgent->changeData(makePath(_out, statePath), "idle");
-                _netConfAgent->changeData(makePath(_number, statePath), "idle");
-
-                return true;
-            }
-        }
-        return false;
-    }
-    bool MobileClient::reject()
-    {
-
-        if (_state == state::active && _out.empty())
-        {
             _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
             _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
             _netConfAgent->changeData(makePath(_number, statePath), "idle");
+
             return true;
         }
-        else
-            return false;
     }
-    bool MobileClient::unregister()
+    else if (!_out.empty())
+    {
+        if (_state == state::busy)
+
+        {
+            std::map<std::string, std::string> mp;
+            mp["startTime"] = std::to_string(_startTime);
+            mp["abonentA"] = _number;
+            mp["abonentB"] = _out;
+            std::time_t endT;
+            std::time(&endT);
+            mp["duration"] = std::to_string((int)(std::difftime(endT, _startTime)) / 60);
+            _netConfAgent->notifySysrepo(mp);
+            _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
+            _netConfAgent->changeData(makePath(_out, statePath), "idle");
+            _netConfAgent->changeData(makePath(_number, statePath), "idle");
+
+            return true;
+        }
+    }
+    return false;
+}
+bool MobileClient::reject()
+{
+
+    if (_state == state::active && _out.empty())
+    {
+        _netConfAgent->deleteData(makePath(_number, incomingnumberPath));
+        _netConfAgent->changeData(makePath(_incomingNumber, statePath), "idle");
+        _netConfAgent->changeData(makePath(_number, statePath), "idle");
+        return true;
+    }
+    else
+        return false;
+}
+bool MobileClient::unregister()
+{
+    if (_incomingNumber.empty() && _out.empty())
+    {
+        _netConfAgent->deleteData(makePath(_number, subscriberPath));
+        std::cout << "abonent is unregistered \n";
+        return true;
+    }
+    else
+    {
+        std::cout << " abonent cant't be deleted, he has active call\n";
+        return false;
+    }
+}
+MobileClient::~MobileClient()
+{
+    if (!_number.empty())
     {
         if (_incomingNumber.empty() && _out.empty())
         {
             _netConfAgent->deleteData(makePath(_number, subscriberPath));
-            std::cout << "abonent is unregistered \n";
-            return true;
         }
         else
         {
-            std::cout << " abonent cant't be deleted, he has active call\n";
-            return false;
+            if (!_out.empty())
+            {
+                if (_state == state::busy)
+                {
+                    callEnd();
+                }
+                if (_state == state::active)
+                {
+                    _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
+                    _netConfAgent->changeData(makePath(_out, statePath), "idle");
+                }
+            }
+            else if (!_incomingNumber.empty())
+            {
+                if (_state == state::busy)
+                {
+                    callEnd();
+                }
+                if (_state == state::active)
+                {
+                    reject();
+                }
+            }
+            _netConfAgent->deleteData(makePath(_number, subscriberPath));
         }
     }
-    MobileClient::~MobileClient()
-    {
-        if (!_number.empty())
-        {
-            if (_incomingNumber.empty() && _out.empty())
-            {
-                _netConfAgent->deleteData(makePath(_number, subscriberPath));
-            }
-            else
-            {
-                if (!_out.empty())
-                {
-                    if (_state == state::busy)
-                    {
-                        callEnd();
-                    }
-                    if (_state == state::active)
-                    {
-                        _netConfAgent->deleteData(makePath(_out, incomingnumberPath));
-                        _netConfAgent->changeData(makePath(_out, statePath), "idle");
-                    }
-                }
-                else if (!_incomingNumber.empty())
-                {
-                    if (_state == state::busy)
-                    {
-                        callEnd();
-                    }
-                    if (_state == state::active)
-                    {
-                        reject();
-                    }
-                }
-                _netConfAgent->deleteData(makePath(_number, subscriberPath));
-            }
-        }
-    }
+}
 }

@@ -4,6 +4,7 @@
 #include <string>
 #include <atomic>
 #include "MobileClient.hpp"
+#include "sysrepo-cpp/utils/exception.hpp"
 namespace comutator
 {
     NetConfAgent::NetConfAgent() : _connection(), _session(_connection.sessionStart())

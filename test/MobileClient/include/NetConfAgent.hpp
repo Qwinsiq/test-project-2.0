@@ -36,7 +36,7 @@ class NetConfAgent:public INetConfAgent
     @param modelName- name of model, where our subscription item is locate
     @param path- path to our item
     @param client- object of MobileClient that call metod registerOperData
-    @return true- if subscription is succesfel created
+    @return true- if subscription is succesful created
             false-if subscription is not created
     */
     bool registerOperData(std::string modelName, std::string path, MobileClient& client) override;
@@ -45,7 +45,7 @@ class NetConfAgent:public INetConfAgent
     @Brief change Data in a specific path
     @param path- path in which is located changing Data
     @param value- new Data that have to be recorded
-    */
+        */
     void changeData(const std::string path, std::string value) override;
 
     /*

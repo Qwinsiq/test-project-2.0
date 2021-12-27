@@ -40,7 +40,7 @@ namespace comutator
     @Brief change Data in a specific path
     @param path- path in which is located changing Data
     @param value- new Data that have to be recorded
-    */
+       */
         virtual void changeData(const std::string path, std::string value)=0;
 
         /*
